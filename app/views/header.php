@@ -28,7 +28,7 @@
                         <li class="nav-item mx-2">
                             <a class="nav-link" href="home">Hlavní stránka</a>
                         </li>
-<!--                        --><?php //if(isset($_SESSION['id'])): ?>
+                        <?php if(isset($_SESSION['id'])): ?>
 <!--                            --><?php //if ($_SESSION['roles'] === 'ROLE_SUPER_ADMIN' or $_SESSION['roles'] === 'ROLE_ADMIN'): ?>
 <!--                                <li class="nav-item mx-2">-->
 <!--                                    <a class="nav-link" href="admin">Vratky</a>-->
@@ -45,11 +45,14 @@
 <!--                            <li class="nav-item mx-2">-->
 <!--                                <a class="nav-link" href="auth/logout">Odhlásit</a>-->
 <!--                            </li>-->
-<!--                        --><?php //else: ?>
+                        <?php else: ?>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link" href="registration">Registrace</a>
+                            </li>
 <!--                            <li class="nav-item mx-2">-->
-<!--                                <a class="nav-link" href="signin">Přihlášení</a>-->
+<!--                                <a class="nav-link" href="#">Přihlášení</a>-->
 <!--                            </li>-->
-<!--                        --><?php //endif; ?>
+                        <?php endif; ?>
 <!--                    </ul>-->
                 </div>
                 <!-- Sidebar Body end -->

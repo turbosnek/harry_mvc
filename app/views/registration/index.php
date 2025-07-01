@@ -31,7 +31,7 @@ if (isset($_SESSION["user_id"])) {
 
     <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
         <section class="main-heading">
-            
+
         </section>
     </main>
 
