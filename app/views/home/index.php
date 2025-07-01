@@ -20,7 +20,7 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" href="<?= ASSETS ?>css/font-awesome.min.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/general.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/header.css" type="text/css"/>
-    <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/index.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/index-query.css" type="text/css"/>
@@ -39,7 +39,7 @@ if (isset($_SESSION["user_id"])) {
         </section>
     </main>
 
-<!--    --><?php //$this->view("footer") ?>
+    <?php $this->view("footer") ?>
 
     <script src="<?= ASSETS ?>js/bootstrap.js"></script>
 </body>
