@@ -30,8 +30,15 @@ if (isset($_SESSION["user_id"])) {
     <?php $this->view("header") ?>
 
     <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
-        <section class="main-heading">
-
+        <section class="registration-form">
+            <form action="" method="POST">
+                <input type="text" name="first_name" class="reg-input" placeholder="Křestní jméno" required><br />
+                <input type="text" name="second_name" class="reg-input" placeholder="Příjmení" required><br />
+                <input type="email" name="email" class="reg-input" placeholder="Email" required><br />
+                <input type="password" name="password" class="reg-input" placeholder="Heslo" required><br />
+                <input type="password" name="password-again" class="reg-input" placeholder="Heslo znovu" required><br />
+                <input type="submit" value="Zaregistrovat">
+            </form>
         </section>
     </main>
 
