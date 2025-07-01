@@ -1,0 +1,9 @@
+@media(max-width: 991px) {
+    .sidebar {
+        background-color: #000000;
+    }
+
+    .btn-close {
+        color: #ffffff;
+    }
+}

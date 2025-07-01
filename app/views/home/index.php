@@ -20,6 +20,7 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" href="<?= ASSETS ?>css/font-awesome.min.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/general.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/public-header.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/index.css" type="text/css"/>
