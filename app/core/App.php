@@ -14,6 +14,7 @@ class App
             "admin" => "AdminController",
             "login" => "AuthController",
             "signin" => "LoginController",
+            "registration" => "RegistrationController",
         ];
 
         // If URL has a controller, map it
@@ -40,6 +41,7 @@ class App
                 $defaultMethods = [
                     "AuthController" => "login",
                     "AdminController" => "index",
+                    "RegistrationController" => "register",
                 ];
 
                 $this->method = $defaultMethods[get_class($this->controller)] ?? "index";
