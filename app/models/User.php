@@ -58,8 +58,6 @@ class User extends Database {
      *
      * @param string $email - Email uživatele
      * @param string $password - Heslo zživatele
-     *
-     * @return bool
      */
     public function login(string $email, string $password) {
         $sql = "SELECT *
@@ -77,25 +75,5 @@ class User extends Database {
         }
 
         return false;
-    }
-
-    /**
-     * Získá ID uživatele z Databáze
-     *
-     * @param string $email - Email uživatele
-     *
-     * @return mixed
-     */
-    public function getUserId(string $email): mixed {
-        $sql = "SELECT id
-                FROM user
-                WhERE email = :email";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $result = $stmt->fetch();
-        return $result[0];
     }
 }

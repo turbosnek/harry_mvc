@@ -37,11 +37,11 @@
 <!--                            <li class="nav-item mx-2">-->
 <!--                                <a class="nav-link" href="auth/logout">Vratky z Příjmu</a>-->
 <!--                            </li>-->
-<!--                            --><?php //if ($_SESSION['roles'] === 'ROLE_SUPER_ADMIN' or $_SESSION['roles'] === 'ROLE_ADMIN'): ?>
-<!--                                <li class="nav-item mx-2">-->
-<!--                                    <a class="nav-link" href="admin">Administrace</a>-->
-<!--                                </li>-->
-<!--                            --><?php //endif; ?>
+                            <?php if ($_SESSION['role'] === 'ROLE_SUPER_ADMIN' or $_SESSION['role'] === 'ROLE_ADMIN'): ?>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link" href="#">Administrace</a>
+                                </li>
+                            <?php endif; ?>
                             <li class="nav-item mx-2">
                                 <a class="nav-link" href="auth/logout">Odhlásit</a>
                             </li>
