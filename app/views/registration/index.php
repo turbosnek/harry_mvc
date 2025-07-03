@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
+    <link rel="stylesheet" href="<?= ASSETS ?>css/public/registration.css" type="text/css"/>
+
     <title><?= $data['title'] ?></title>
 </head>
 
@@ -30,14 +32,14 @@
                 <input type="text" name="anti-spam" class="reg-input" placeholder="Aktuální rok (Anti Spam)" required><br />
                 <input type="password" name="password" class="reg-input" placeholder="Heslo" required><br />
                 <input type="password" name="password-again" class="reg-input" placeholder="Heslo znovu" required><br />
-                <input type="submit" value="Zaregistrovat">
                 <?php if (!empty($data['errors'])): ?>
-                    <ul style="color:red;">
+                    <ul>
                         <?php foreach ($data['errors'] as $error): ?>
                             <li><?= htmlspecialchars($error) ?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
+                <input type="submit" class="btn" value="Zaregistrovat">
             </form>
         </section>
     </main>
