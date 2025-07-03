@@ -52,4 +52,50 @@ class User extends Database {
 
         return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
     }
+
+    /**
+     * Přihlásí uživatele do systému
+     *
+     * @param string $email - Email uživatele
+     * @param string $password - Heslo zživatele
+     *
+     * @return bool
+     */
+    public function login(string $email, string $password) {
+        $sql = "SELECT *
+                FROM user
+                WHERE email = :email";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user and password_verify($password, $user['password'])) {
+            return $user;
+        }
+
+        return false;
+    }
+
+    /**
+     * Získá ID uživatele z Databáze
+     *
+     * @param string $email - Email uživatele
+     *
+     * @return mixed
+     */
+    public function getUserId(string $email): mixed {
+        $sql = "SELECT id
+                FROM user
+                WhERE email = :email";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+        return $result[0];
+    }
 }

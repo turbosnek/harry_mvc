@@ -14,7 +14,7 @@ class App
             "admin" => "AdminController",
             "login" => "AuthController",
             "signin" => "LoginController",
-            "registration" => "RegistrationController",
+//            "registration" => "RegistrationController",
         ];
 
         // If URL has a controller, map it

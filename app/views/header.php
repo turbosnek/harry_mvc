@@ -49,11 +49,11 @@
                             <li class="nav-item mx-2">
                                 <a class="nav-link" href="registration">Registrace</a>
                             </li>
-<!--                            <li class="nav-item mx-2">-->
-<!--                                <a class="nav-link" href="#">Přihlášení</a>-->
-<!--                            </li>-->
+                            <li class="nav-item mx-2">
+                                <a class="nav-link" href="auth">Přihlášení</a>
+                            </li>
                         <?php endif; ?>
-<!--                    </ul>-->
+                    </ul>
                 </div>
                 <!-- Sidebar Body end -->
             </div>
