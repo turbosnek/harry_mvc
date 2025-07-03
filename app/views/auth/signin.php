@@ -24,14 +24,8 @@
 <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
     <section class="form">
         <form action="" method="POST">
-<!--            <input type="text" name="first_name" class="reg-input" placeholder="Křestní jméno" value="--><?php //= htmlspecialchars(isset($_POST['first_name']) ? $_POST['first_name']:  '') ?><!--" required><br />-->
-<!--            <input type="text" name="second_name" class="reg-input" placeholder="Příjmení" value="--><?php //= htmlspecialchars(isset($_POST['second_name']) ? $_POST['second_name']:  '') ?><!--" required><br />-->
-<!--            <input type="email" name="email" class="reg-input" placeholder="Email" value="--><?php //= htmlspecialchars(isset($_POST['email']) ? $_POST['email']:  '') ?><!--" required><br />-->
-<!--            <input type="text" name="anti-spam" class="reg-input" placeholder="Aktuální rok (Anti Spam)" required><br />-->
-<!--            <input type="password" name="password" class="reg-input" placeholder="Heslo" required><br />-->
-<!--            <input type="password" name="password-again" class="reg-input" placeholder="Heslo znovu" required><br />-->
             <h1>Přihlášení</h1>
-            <input type="email" name="log-email" class="email" placeholder="Email" required><br />
+            <input type="email" name="log-email" class="email" placeholder="Email" value="<?= htmlspecialchars(isset($_POST['log-email']) ? $_POST['log-email']:  '') ?>" required><br />
             <input type="password" name="log-password" class="email" placeholder="Heslo" required><br />
             <?php if (!empty($data['errors'])): ?>
                 <ul>
