@@ -28,7 +28,7 @@ Class AuthController extends Controller {
 
                 URL::redirectUrl("/Web/harry_mvc/registration");
             } else {
-                $errors[] = "Neplatné přístupov= údaje.";
+                $errors[] = "Neplatné přístupové údaje.";
             }
         }
         $this->view("auth/signin", ['title' => "Přihlášení",
