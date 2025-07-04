@@ -26,7 +26,7 @@ Class AuthController extends Controller {
                 $_SESSION['second_name'] = $user['second_name'];
                 $_SESSION['role'] = $user['role'];
 
-                URL::redirectUrl("/Web/harry_mvc/");
+                URL::redirectUrl("/");
             } else {
                 $errors[] = "Neplatné přístupové údaje.";
             }
@@ -57,6 +57,6 @@ Class AuthController extends Controller {
         session_destroy();
 
         // Redirect to login page or homepage
-        URL::redirectUrl("/Web/harry_mvc/");
+        URL::redirectUrl("/");
     }
 }

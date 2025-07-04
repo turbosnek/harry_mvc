@@ -35,7 +35,7 @@ class RegistrationController extends Controller {
 
             if (empty($errors)) {
                 if ($user->createUser(htmlspecialchars($first_name), htmlspecialchars($second_name), htmlspecialchars($email), password_hash($password, PASSWORD_DEFAULT), $role)) {
-                    URL::redirectUrl("/Web/harry_mvc/");
+                    URL::redirectUrl("/");
                 } else {
                     $errors[] = "Registrace se nezdařila. Zkuste to prosím znovu";
                 }
