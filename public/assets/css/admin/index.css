@@ -1,0 +1,24 @@
+main {
+    background: linear-gradient(#000000, rgba(0, 0, 0, 0.559)),
+    url("../../images/background/background.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.main-heading {
+    text-align: center;
+}
+
+.main-heading h1 {
+    font-size: 50px;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.main-heading h2 {
+    font-size: 40px;
+    color: #ffffff;
+    letter-spacing: 2px;
+}

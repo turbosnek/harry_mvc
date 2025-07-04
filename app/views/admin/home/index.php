@@ -15,23 +15,23 @@
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
+    <link rel="stylesheet" href="<?= ASSETS ?>css/admin/index.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>query/admin/index-query.css" type="text/css"/>
+
     <title><?= $data['title'] ?></title>
 </head>
 
 <body>
     <?php $this->view("admin-header") ?>
 
-    <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
-        <section class="logo">
-            <img src="<?= ASSETS ?>images/background/hogwarts-logo.png" alt="Škola čar a kouzel v Bradavicích logo">
-        </section>
+    <main class="min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <section class="main-heading">
             <?php if (isset($_SESSION['id'])): ?>
-                <h1>Vítejte v administraci</h1>
-                <h2>Jsi přihlášen jako: <?= $_SESSION['first_name'] . " " . $_SESSION['second_name'] ?></h2>
-                <h2>Toje uživatelská role je: <?= $_SESSION['role'] ?></h2>
+                <h1>Vítejte v&nbsp;administraci</h1>
+                <h2>Jsi přihlášen jako: <?= $_SESSION['first_name'] . "&nbsp;" . $_SESSION['second_name'] ?></h2>
+                <h2>Tvoje uživatelská role je: <?= $_SESSION['role'] ?></h2>
             <?php else: ?>
-                <h1>Nemáte dostatečná oprávnění k přístupu na tuto stránku.</h1>
+                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
             <?php endif; ?>
         </section>
     </main>
