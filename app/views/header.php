@@ -29,14 +29,6 @@
                             <a class="nav-link" href="home">Hlavní stránka</a>
                         </li>
                         <?php if(isset($_SESSION['id'])): ?>
-<!--                            --><?php //if ($_SESSION['roles'] === 'ROLE_SUPER_ADMIN' or $_SESSION['roles'] === 'ROLE_ADMIN'): ?>
-<!--                                <li class="nav-item mx-2">-->
-<!--                                    <a class="nav-link" href="admin">Vratky</a>-->
-<!--                                </li>-->
-<!--                            --><?php //endif; ?>
-<!--                            <li class="nav-item mx-2">-->
-<!--                                <a class="nav-link" href="auth/logout">Vratky z Příjmu</a>-->
-<!--                            </li>-->
                             <?php if ($_SESSION['role'] === 'ROLE_SUPER_ADMIN' or $_SESSION['role'] === 'ROLE_ADMIN'): ?>
                                 <li class="nav-item mx-2">
                                     <a class="nav-link" href="#">Administrace</a>
