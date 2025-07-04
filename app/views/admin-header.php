@@ -25,24 +25,9 @@
                 <!-- Sidebar Body start -->
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="home">Hlavní stránka</a>
-                        </li>
                         <?php if(isset($_SESSION['id'])): ?>
-                            <?php if ($_SESSION['role'] === 'ROLE_SUPER_ADMIN' or $_SESSION['role'] === 'ROLE_ADMIN'): ?>
-                                <li class="nav-item mx-2">
-                                    <a class="nav-link" href="admin/">Administrace</a>
-                                </li>
-                            <?php endif; ?>
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="auth/logout">Odhlásit</a>
-                            </li>
-                        <?php else: ?>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link" href="registration">Registrace</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link" href="auth">Přihlášení</a>
+                                <a class="nav-link" href="../auth/logout">Odhlásit</a>
                             </li>
                         <?php endif; ?>
                     </ul>

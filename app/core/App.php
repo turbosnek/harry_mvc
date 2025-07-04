@@ -11,10 +11,9 @@ class App
 
         // ✅ Custom URL mappings
         $routes = [
-            "admin" => "AdminController",
+            "admin" => "AdminHomeController",
             "login" => "AuthController",
             "signin" => "LoginController",
-//            "registration" => "RegistrationController",
         ];
 
         // If URL has a controller, map it
@@ -40,7 +39,6 @@ class App
             if (empty($this->method)) {
                 $defaultMethods = [
                     "AuthController" => "login",
-                    "AdminController" => "index",
                     "RegistrationController" => "register",
                 ];
 
