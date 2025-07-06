@@ -17,7 +17,7 @@ class AdminStudentController extends Controller
             $errors[] = "Žádní žáci nebyly nalezeni";
         }
 
-        $this->view("admin/students/index", ["title" => "Administrace - Seznam žáků",
+        $this->view("admin/students/students", ["title" => "Administrace - Seznam žáků",
                                                         'errors' => $errors,
                                                         'students' => $students]);
     }
