@@ -26,12 +26,12 @@
 
     <main class="min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <section class="main-heading">
-            <?php if (isset($_SESSION['id'])): ?>
+            <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
+                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
+            <?php else: ?>
                 <h1>Vítejte v&nbsp;administraci</h1>
                 <h2>Jsi přihlášen jako: <?= $_SESSION['first_name'] . "&nbsp;" . $_SESSION['second_name'] ?></h2>
                 <h2>Tvoje uživatelská role je: <?= $_SESSION['role'] ?></h2>
-            <?php else: ?>
-                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
             <?php endif; ?>
         </section>
     </main>
