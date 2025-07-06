@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
-    <link rel="stylesheet" href="<?= ASSETS ?>css/admin/index.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>css/admin/admin-index.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>query/admin/index-query.css" type="text/css"/>
 
     <title><?= $data['title'] ?></title>

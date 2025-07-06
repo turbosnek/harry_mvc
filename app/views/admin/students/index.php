@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
+    <link rel="stylesheet" href="<?= ASSETS ?>css/admin/admin-students.css" type="text/css"/>
+
     <title><?= $data['title'] ?></title>
 </head>
 
@@ -23,7 +25,7 @@
 
     <main class="min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
-            <section class="errors">
+            <section class="errors d-flex flex-row justify-content-center align-items-center">
                 <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
             </section>
         <?php else: ?>
@@ -35,9 +37,9 @@
                 <?php if (!empty($data['errors'])): ?>
                     <h1><?= $data['errors'] ?></h1>
                 <?php else: ?>
-                    <div class="all-students">
+                    <div class="all-students d-flex flex-row justify-content-center flex-wrap">
                         <?php foreach ($data['students'] as $one_student): ?>
-                            <div class="one-student">
+                            <div class="one-student d-flex flex-column justify-content-center align-items-center">
                                 <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
                                 <a href="#">Více informací</a>
                             </div>
