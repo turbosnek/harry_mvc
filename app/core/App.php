@@ -9,25 +9,38 @@ class App
     public function __construct() {
         $url = $this->parseUrl();
 
-        // ✅ Custom URL mappings
+        $fullKey = implode('/', array_slice($url, 0, 2));
         $routes = [
             "admin" => "AdminHomeController",
+            "admin/students" => "AdminStudentController",
             "login" => "AuthController",
             "signin" => "LoginController",
         ];
 
-        // If URL has a controller, map it
-        $controllerKey = $url[0] ?? "home"; // Default to "home"
-        $controllerName = $routes[$controllerKey] ?? ucfirst($controllerKey) . "Controller";
-        $controllerFile = "../app/controllers/" . $controllerName . ".php";
+        // Check if 2-segment match exists (like "admin/students")
+        if (isset($routes[$fullKey])) {
+            $controllerName = $routes[$fullKey];
+            $controllerFile = "../app/controllers/" . $controllerName . ".php";
 
-        if (file_exists($controllerFile)) {
-            require_once $controllerFile;
-            $this->controller = new $controllerName;
-            unset($url[0]);
+            if (file_exists($controllerFile)) {
+                require_once $controllerFile;
+                $this->controller = new $controllerName;
+                unset($url[0], $url[1]);
+            }
         } else {
-            echo "Controller not found: " . $controllerName;
-            exit;
+            // Fallback to single-segment controller like 'admin'
+            $controllerKey = $url[0] ?? "home";
+            $controllerName = $routes[$controllerKey] ?? ucfirst($controllerKey) . "Controller";
+            $controllerFile = "../app/controllers/" . $controllerName . ".php";
+
+            if (file_exists($controllerFile)) {
+                require_once $controllerFile;
+                $this->controller = new $controllerName;
+                unset($url[0]);
+            } else {
+                echo "Controller not found: " . $controllerName;
+                exit;
+            }
         }
 
         // If URL has a method, set it
@@ -40,6 +53,7 @@ class App
                 $defaultMethods = [
                     "AuthController" => "login",
                     "RegistrationController" => "register",
+                    "AdminStudentController" => 'allStudents'
                 ];
 
                 $this->method = $defaultMethods[get_class($this->controller)] ?? "index";
