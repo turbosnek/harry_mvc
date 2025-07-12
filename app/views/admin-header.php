@@ -35,17 +35,17 @@
                                 </li>
                             <?php endif; ?>
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="../auth/logout">Odhlásit</a>
+                                <a class="nav-link" href="/auth/logout">Odhlásit</a>
                             </li>
                         <?php else: ?>
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="../home">Hlavní stránka</a>
+                                <a class="nav-link" href="/">Hlavní stránka</a>
                             </li>
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="../registration">Registrace</a>
+                                <a class="nav-link" href="/auth/register">Registrace</a>
                             </li>
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="../auth">Přihlášení</a>
+                                <a class="nav-link" href="/auth/login">Přihlášení</a>
                             </li>
                         <?php endif; ?>
                     </ul>
