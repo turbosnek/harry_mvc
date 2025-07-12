@@ -59,6 +59,7 @@ Class AuthController extends Controller {
         $errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            // CSRF
             if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
                 $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
             }
@@ -66,9 +67,13 @@ Class AuthController extends Controller {
             $log_email = strtolower(trim($_POST['log_email']));
             $log_password = trim($_POST['log_password']);
 
-            if (!filter_var($log_email, FILTER_VALIDATE_EMAIL)) {
+            if (empty($log_email) || empty($log_password)) {
+                $errors[] = "Vyplňte prosím všechny údaje.";
+            } elseif (!filter_var($log_email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = "Neplatný formát emailu";
-            } else {
+            }
+
+            if (empty($errors)) {
                 $user = $userModel->login($log_email, $log_password);
 
                 if ($user) {
@@ -82,7 +87,7 @@ Class AuthController extends Controller {
                     $_SESSION['role'] = $user['role'];
 
                     URL::redirectUrl("/");
-                } else {
+            } else {
                     $errors[] = "Neplatné přístupové údaje";
                 }
             }
