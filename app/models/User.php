@@ -62,7 +62,7 @@ Class User extends Database {
      *
      * @return bool
      */
-    public function login(string $email, string $password): bool
+    public function login(string $email, string $password)
     {
         $sql = "SELECT *
                 FROM user
