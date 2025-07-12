@@ -27,7 +27,7 @@ Class AdminStudentController extends Controller {
             }
         }
 
-        $this->view("auth/create-student", ['title' => "Administrace - Nový žák školy",
+        $this->view("admin/create-student", ['title' => "Administrace - Nový žák školy",
             'errors' => $errors]);
     }
 }
