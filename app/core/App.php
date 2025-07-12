@@ -12,7 +12,6 @@ class App
         $fullKey = implode('/', array_slice($url, 0, 2));
         $routes = [
             "admin" => "AdminHomeController",
-            "admin/students" => "AdminStudentController",
             "login" => "AuthController",
             "signin" => "LoginController",
         ];
@@ -53,7 +52,6 @@ class App
                 $defaultMethods = [
                     "AuthController" => "login",
                     "RegistrationController" => "register",
-                    "AdminStudentController" => 'allStudents'
                 ];
 
                 $this->method = $defaultMethods[get_class($this->controller)] ?? "index";

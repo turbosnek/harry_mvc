@@ -28,7 +28,10 @@
                         <?php if(isset($_SESSION['id'])): ?>
                             <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN" or $_SESSION['role'] === "ROLE_ADMIN"): ?>
                                 <li class="nav-item mx-2">
-                                    <a class="nav-link" href="students">Žáci</a>
+                                    <a class="nav-link" href="students">Seznam Žáků</a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link" href="create-student">Přidat Žáka</a>
                                 </li>
                             <?php endif; ?>
                             <li class="nav-item mx-2">
