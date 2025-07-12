@@ -68,23 +68,23 @@ Class AuthController extends Controller {
 
             if (!filter_var($log_email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = "Neplatný formát emailu";
-            }
-
-            $user = $userModel->login($log_email, $log_password);
-
-            if ($user) {
-                // Fixation attack defend More information:
-                // https://owasp.org/www-community/attacks/Session_fixation
-                session_regenerate_id(true);
-
-                $_SESSION['id'] = $user['id'];
-                $_SESSION['first_name'] = $user['first_name'];
-                $_SESSION['second_name'] = $user['second_name'];
-                $_SESSION['role'] = $user['role'];
-
-                URL::redirectUrl("/");
             } else {
-                $errors[] = "Neplatné přístupové údaje";
+                $user = $userModel->login($log_email, $log_password);
+
+                if ($user) {
+                    // Fixation attack defend More information:
+                    // https://owasp.org/www-community/attacks/Session_fixation
+                    session_regenerate_id(true);
+
+                    $_SESSION['id'] = $user['id'];
+                    $_SESSION['first_name'] = $user['first_name'];
+                    $_SESSION['second_name'] = $user['second_name'];
+                    $_SESSION['role'] = $user['role'];
+
+                    URL::redirectUrl("/");
+                } else {
+                    $errors[] = "Neplatné přístupové údaje";
+                }
             }
         }
 
