@@ -3,6 +3,8 @@
 Class AuthController extends Controller {
     public function register(): void
     {
+        $userModel = $this->model('User');
+
         $errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -22,8 +24,15 @@ Class AuthController extends Controller {
                 $errors[] = "Hesla se neshodují";
             }
 
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = "Neplatný formát emailu";
+            }
+
+            if ($userModel->checkEmail($email)) {
+                $errors[] = "Tento Email je již zaregistrovaný";
+            }
+
             if (empty($errors)) {
-                $userModel = $this->model('User');
                 $userModel->register($first_name, $second_name, $email, password_hash($password, PASSWORD_DEFAULT), $role);
 
                 Url::redirectUrl("/");

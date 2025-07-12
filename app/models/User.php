@@ -32,4 +32,25 @@ Class User extends Database {
 
         return true;
     }
+
+    /**
+     * Zjistí, jestli se v systému nachází zadaný email
+     *
+     * @param string $email - Email uživatele
+     *
+     * @return bool
+     */
+    public function checkEmail(string $email)
+    {
+        $sql = "SELECT email FROM user
+                WHERE email = :email limit 1";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+    }
 }
