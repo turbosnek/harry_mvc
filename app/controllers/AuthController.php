@@ -51,4 +51,43 @@ Class AuthController extends Controller {
             'errors' => $errors,
             'csrfToken' => $csrfToken]);
     }
+
+    public function login(): void
+    {
+        $userModel = $this->model('User');
+
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
+                $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
+            }
+
+            $log_email = trim($_POST['log_email']);
+            $log_password = trim($_POST['log_password']);
+
+            $user = $userModel->login($log_email, $log_password);
+
+            if ($user) {
+                // Fixation attack defend More information:
+                // https://owasp.org/www-community/attacks/Session_fixation
+                session_regenerate_id(true);
+
+                $_SESSION['id'] = $user['id'];
+                $_SESSION['first_name'] = $user['first_name'];
+                $_SESSION['second_name'] = $user['second_name'];
+                $_SESSION['role'] = $user['role'];
+
+                URL::redirectUrl("/");
+            } else {
+                $errors[] = "Neplatné přístupové údaje";
+            }
+        }
+
+        $csrfToken = CsrfHelper::generateToken();
+
+        $this->view("auth/login", ['title' => "Přihlášení",
+            'errors' => $errors,
+            'csrfToken' => $csrfToken]);
+    }
 }

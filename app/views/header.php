@@ -42,7 +42,7 @@
                                 <a class="nav-link" href="/auth/register">Registrace</a>
                             </li>
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="auth">Přihlášení</a>
+                                <a class="nav-link" href="/auth/login">Přihlášení</a>
                             </li>
                         <?php endif; ?>
                     </ul>
