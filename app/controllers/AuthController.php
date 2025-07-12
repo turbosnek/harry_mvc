@@ -6,9 +6,9 @@ Class AuthController extends Controller {
         $errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            $first_name = $_POST['first_name'];
-            $second_name = $_POST['second_name'];
-            $email = $_POST['email'];
+            $first_name = trim($_POST['first_name']);
+            $second_name = trim($_POST['second_name']);
+            $email = trim($_POST['email']);
             $anti_spam = $_POST['anti_spam'];
             $password = $_POST['password'];
             $password_again = $_POST['password_again'];
@@ -27,8 +27,6 @@ Class AuthController extends Controller {
                 $userModel->register($first_name, $second_name, $email, password_hash($password, PASSWORD_DEFAULT), $role);
 
                 Url::redirectUrl("/");
-            } else {
-                $errors[] = "Registrace se nezdařila";
             }
         }
 
