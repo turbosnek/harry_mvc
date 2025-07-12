@@ -2,23 +2,25 @@
 
 
 class Database {
-    private $host = 'localhost';
-    private $user = 'root';
-    private $pass = '';
-    private $dbname = 'harry_mvc';
-    protected $dbh;
+    private $host = "localhost";
+    private $db_name = "school_mvc";
+    private $username = "root";
+    private $password = "";
+    protected $conn;
 
-    public function __construct() {
-        try {
-            $this->dbh = new PDO("mysql:host=$this->host;dbname=$this->dbname;charset=utf8", $this->user, $this->pass);
-        } catch (PDOException $e) {
-            die($e->getMessage());
+    public function connect() {
+        if ($this->conn === null) { // ✅ Only create connection if not already established
+            try {
+                $this->conn = new PDO(
+                    "mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";charset=utf8mb4",
+                    $this->username,
+                    $this->password
+                );
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Připojení k databázi selhalo: " . $e->getMessage()); // 🔴 Stop script if connection fails
+            }
         }
-    }
-
-    public function query($sql, $params = []) {
-        $stmt = $this->dbh->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
+        return $this->conn; // ✅ Always return the connection
     }
 }
