@@ -1,5 +1,7 @@
 <?php
 
+require_once './app/helpers/CsrfHelper.php';
+
 Class AuthController extends Controller {
     public function register(): void
     {
@@ -8,6 +10,10 @@ Class AuthController extends Controller {
         $errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
+                $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
+            }
+
             $first_name = trim($_POST['first_name']);
             $second_name = trim($_POST['second_name']);
             $email = trim($_POST['email']);
@@ -39,7 +45,10 @@ Class AuthController extends Controller {
             }
         }
 
+        $csrfToken = CsrfHelper::generateToken();
+
         $this->view("auth/register", ['title' => "Registrace",
-            'errors' => $errors]);
+            'errors' => $errors,
+            'csrfToken' => $csrfToken]);
     }
 }

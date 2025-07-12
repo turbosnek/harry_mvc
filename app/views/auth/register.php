@@ -26,6 +26,7 @@
     <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
         <section class="registration-form">
             <form action="" method="POST">
+                <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
                 <input type="text" name="first_name" class="reg-input" placeholder="Křestní jméno" value="<?= htmlspecialchars(isset($_POST['first_name']) ? $_POST['first_name']:  '') ?>" required><br />
                 <input type="text" name="second_name" class="reg-input" placeholder="Příjmení" value="<?= htmlspecialchars(isset($_POST['second_name']) ? $_POST['second_name']:  '') ?>" required><br />
                 <input type="email" name="email" class="reg-input" placeholder="Email" value="<?= htmlspecialchars(isset($_POST['email']) ? $_POST['email']:  '') ?>" required><br />
