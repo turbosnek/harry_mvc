@@ -5,7 +5,6 @@ require_once "../app/core/Controller.php";
 require_once "../app/core/Database.php";
 require_once "../app/core/Url.php";
 require_once "../app/models/User.php";
-require_once "../app/models/Student.php";
 
 session_start();
 
