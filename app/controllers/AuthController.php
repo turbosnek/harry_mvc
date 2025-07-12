@@ -16,7 +16,7 @@ Class AuthController extends Controller {
 
             $first_name = trim($_POST['first_name']);
             $second_name = trim($_POST['second_name']);
-            $email = trim($_POST['email']);
+            $email = strtolower(trim($_POST['email']));
             $anti_spam = $_POST['anti_spam'];
             $password = $_POST['password'];
             $password_again = $_POST['password_again'];
@@ -63,8 +63,12 @@ Class AuthController extends Controller {
                 $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
             }
 
-            $log_email = trim($_POST['log_email']);
+            $log_email = strtolower(trim($_POST['log_email']));
             $log_password = trim($_POST['log_password']);
+
+            if (!filter_var($log_email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = "Neplatný formát emailu";
+            }
 
             $user = $userModel->login($log_email, $log_password);
 
