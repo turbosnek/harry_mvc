@@ -1,0 +1,33 @@
+nav {
+    height: 70px;
+}
+
+.logo {
+    flex-grow: 1;
+}
+
+.logo img {
+    width: 50px;
+    margin-left: 20px;
+}
+
+.navbar {
+    background-color: #000000;
+    font-family: Futura, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.nav-item {
+    float: right;
+}
+
+.nav-link {
+    color: #ffffff;
+    transition: all .3s linear;
+}
+
+.nav-link:hover {
+    color: #ffda00;
+}
