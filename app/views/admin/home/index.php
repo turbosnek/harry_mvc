@@ -31,11 +31,11 @@
             <?php else: ?>
                 <h1>Vítejte v&nbsp;administraci</h1>
                 <h2>Jsi přihlášen jako: <?= $_SESSION['first_name'] . "&nbsp;" . $_SESSION['second_name'] ?></h2>
-                <h2>Tvoje uživatelská role je: <?= str_replace(["ROLE_", "_"], " ", $_SESSION['role']) ?></h2>
+                <h2>Tvoje uživatelská role je: <?= str_replace(["ROLE_", "_"], "&nbsp;", $_SESSION['role']) ?></h2>
             <?php endif; ?>
         </section>
     </main>
-    
+
     <?php $this->view("footer") ?>
 
     <script src="<?= ASSETS ?>js/bootstrap.js"></script>
