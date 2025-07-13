@@ -3,6 +3,11 @@
 require_once './app/helpers/CsrfHelper.php';
 
 Class StudentController extends Controller {
+    /**
+     * Vytvoří studenta
+     *
+     * @return void
+     */
     public function createStudent(): void {
         $studentModel = $this->model('Student');
 
@@ -41,7 +46,12 @@ Class StudentController extends Controller {
             'csrfToken' => $csrfToken]);
     }
 
-    public function getAllStudents(): void
+    /**
+     * Získá všechny studenty
+     *
+     * @return void
+     */
+    public function students(): void
     {
         $studentModel = $this->model('Student');
 
