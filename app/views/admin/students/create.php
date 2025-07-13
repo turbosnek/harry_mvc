@@ -31,11 +31,11 @@
             <?php else: ?>
                 <form action="" method="POST">
                     <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
-                    <input type="text" name="first_name" placeholder="Křestní jméno" value="<?= htmlspecialchars(isset($_POST['first_name']) ? $_POST['first_name']:  '') ?>" required>
-                    <input type="text" name="second_name" placeholder="Příjmení" value="<?= htmlspecialchars(isset($_POST['second_name']) ? $_POST['second_name']:  '') ?>" required>
-                    <input type="number" name="age" placeholder="Věk" value="<?= htmlspecialchars(isset($_POST['age']) ? $_POST['age']:  '') ?>" min="10" required>
-                    <input type="text" name="college" placeholder="Kolej" value="<?= htmlspecialchars(isset($_POST['college']) ? $_POST['college']:  '') ?>" required>
-                    <textarea name="life" placeholder="Informace o žákovi" required><?= htmlspecialchars(isset($_POST['college']) ? $_POST['college']:  '') ?></textarea>
+                    <input type="text" name="first_name" placeholder="Křestní jméno" value="<?= htmlspecialchars(isset($_POST['first_name']) ? $_POST['first_name']:  '') ?>">
+                    <input type="text" name="second_name" placeholder="Příjmení" value="<?= htmlspecialchars(isset($_POST['second_name']) ? $_POST['second_name']:  '') ?>">
+                    <input type="number" name="age" placeholder="Věk" value="<?= htmlspecialchars(isset($_POST['age']) ? $_POST['age']:  '') ?>" min="10">
+                    <input type="text" name="college" placeholder="Kolej" value="<?= htmlspecialchars(isset($_POST['college']) ? $_POST['college']:  '') ?>">
+                    <textarea name="life" placeholder="Informace o žákovi"><?= htmlspecialchars(isset($_POST['college']) ? $_POST['college']:  '') ?></textarea>
                     <?php if (!empty($data['errors'])): ?>
                         <ul>
                             <?php foreach ($data['errors'] as $error): ?>
@@ -43,7 +43,7 @@
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
-                    <input type="submit" class="btn" value="Přidat žáka">
+                    <input type="submit" value="Přidat žáka">
                 </form>
             <?php endif; ?>
         </section>

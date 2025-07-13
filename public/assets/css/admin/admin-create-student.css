@@ -34,15 +34,25 @@ form textarea {
     width: 555px;
 }
 
-.btn {
+input[type="submit"] {
     background-color: #ad8924;
     border: none;
+    border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s linear;
     color: #ffffff;
 }
 
-.btn:hover {
+input[type="submit"]:hover {
     background-color: #c29a2b;
     color: #ffffff;
+}
+
+.add-form ul {
+    list-style-type: none;
+    color: red;
+    font-size: 20px;list-style-type: none;
+    color: red;
+    font-size: 20px;
+    text-align: center;
 }
