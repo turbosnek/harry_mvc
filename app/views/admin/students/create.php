@@ -27,6 +27,7 @@
                 <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
             <?php else: ?>
                 <form action="" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
                     <input type="text" name="first_name" placeholder="Křestní jméno" value="<?= htmlspecialchars(isset($_POST['first_name']) ? $_POST['first_name']:  '') ?>" required>
                     <input type="text" name="second_name" placeholder="Příjmení" value="<?= htmlspecialchars(isset($_POST['second_name']) ? $_POST['second_name']:  '') ?>" required>
                     <input type="number" name="age" placeholder="Věk" value="<?= htmlspecialchars(isset($_POST['age']) ? $_POST['age']:  '') ?>" min="10" required>
