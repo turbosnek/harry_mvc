@@ -59,5 +59,6 @@
     <?php $this->view("footer") ?>
 
     <script src="<?= ASSETS ?>js/bootstrap.js"></script>
+    <script src="<?= ASSETS ?>js/filterStudents.js"></script>
 </body>
 </html>
