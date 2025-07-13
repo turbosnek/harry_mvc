@@ -73,4 +73,24 @@ Class Student extends Database {
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Smaže studenta ze systému
+     *
+     * @param int $id - ID Studenta
+     *
+     * @return bool
+     */
+    public function deleteStudent(int $id): bool {
+        $sql = "DELETE FROM student
+                WHERE id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return true;
+    }
 }
