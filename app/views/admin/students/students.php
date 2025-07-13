@@ -33,6 +33,10 @@
                 <h1>Seznam žáků školy</h1>
             </section>
 
+            <section class="filter">
+                <input class="filter-input" type="text">
+            </section>
+
             <section class="students-list">
                 <?php if (!empty($data['errors'])): ?>
                     <?php foreach ($data['errors'] as $error): ?>
