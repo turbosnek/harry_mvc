@@ -175,7 +175,7 @@ Class StudentController extends Controller {
                 if (empty($errors)) {
                     $studentModel->updateStudent($first_name, $second_name, $age, $life, $college, $id);
 
-                    Url::redirectUrl("/student/student");
+                    Url::redirectUrl("/student/student/" . $id);
                 }
             }
         }
