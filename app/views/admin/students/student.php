@@ -42,6 +42,10 @@
                         <p>Informace o žákovi: <?= htmlspecialchars($data['student']['life']) ?></p>
                         <p>Kolej: <?= htmlspecialchars($data['student']['college']) ?></p>
                     </div>
+                        <div class="one-student-buttons">
+                            <a class="edit-one-student" href="#">Editovat</a>
+                            <a class="delete-one-student" href="#">Smazat</a>
+                        </div>
                 <?php endif; ?>
             </section>
         <?php endif; ?>
