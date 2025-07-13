@@ -40,4 +40,21 @@ Class StudentController extends Controller {
             'errors' => $errors,
             'csrfToken' => $csrfToken]);
     }
+
+    public function getAllStudents(): void
+    {
+        $studentModel = $this->model('Student');
+
+        $errors = [];
+
+        $students = $studentModel->getAllStudents("id, first_name, second_name");
+
+        if (empty($students)) {
+            $errors[] = "Žádní žáci nebyli nalezeni";
+        }
+
+        $this->view("admin/students/students", ["title" => "Administrace - Seznam žáků školy",
+            'errors' => $errors,
+            'students' => $students]);
+    }
 }

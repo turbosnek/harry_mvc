@@ -33,4 +33,22 @@ Class Student extends Database {
 
         return true;
     }
+
+    /**
+     * Získá všechny studenty z databáze
+     *
+     * @param $columns - Vybrané sloupečky, které potřebujeme
+     *
+     * @return array
+     */
+    public function getAllStudents($columns = "*"): array {
+        $sql = "SELECT $columns
+                FROM student";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
