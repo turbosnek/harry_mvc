@@ -93,4 +93,37 @@ Class Student extends Database {
 
         return true;
     }
+
+    /**
+     * Updatuje informace o žákovi v databázi
+     *
+     * @param string $first_name - Křestní jméno studenta
+     * @param string $second_name - Příjmení studenta
+     * @param int $age - Věk studenta
+     * @param string $life - Informace o studentovi
+     * @param string $college - Kolej studenta
+     * @param int $id - ID studenta
+     *
+     * @return bool
+     */
+    public function updateStudent (string $first_name, string $second_name, int $age, string $life, string $college, int $id): bool {
+        $sql = "UPDATE student
+                SET first_name = :first_name,
+                    second_name = :second_name,
+                    age = :age,
+                    life = :life,
+                    college = :college
+                WHERE id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+        $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
+        $stmt->bindValue(":age", $age, PDO::PARAM_INT);
+        $stmt->bindValue(":life", $life, PDO::PARAM_STR);
+        $stmt->bindValue(":college", $college, PDO::PARAM_STR);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
 }

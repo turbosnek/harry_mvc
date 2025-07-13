@@ -20,7 +20,7 @@ Class StudentController extends Controller {
 
             $first_name = trim($_POST['first_name']);
             $second_name = trim($_POST['second_name']);
-            $age = trim($_POST['age']);
+            $age = $_POST['age'];
             $life = trim($_POST['life']);
             $college = trim($_POST['college']);
 
@@ -29,7 +29,7 @@ Class StudentController extends Controller {
             }
 
             if ($age < 10) {
-                $errors[] = "Minimální věk pro registraci je 10 Let.";
+                $errors[] = "Minimální věk pro studenta je 10 Let.";
             }
 
             if (empty($errors)) {
@@ -130,6 +130,59 @@ Class StudentController extends Controller {
         $csrfToken = CsrfHelper::generateToken();
 
         $this->view("admin/students/delete", ['title' => "Administrace - Smazaní žáka",
+            'errors' => $errors,
+            'student' => $student,
+            'csrfToken' => $csrfToken]);
+    }
+
+    /**
+     * Upravuje informace o žákovi v databázi
+     *
+     * @param $id
+     *
+     * @return void
+     */
+    public function edit($id): void
+    {
+        $studentModel = $this->model('Student');
+
+        $errors = [];
+
+        $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college");
+
+        if ($student) {
+            if ($_SERVER['REQUEST_METHOD'] === "POST") {
+                if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
+                    $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
+                }
+
+                $first_name = trim($_POST['first_name']);
+                $second_name = trim($_POST['second_name']);
+                $age = $_POST['age'];
+                $life = trim($_POST['life']);
+                $college = trim($_POST['college']);
+
+                if (empty($first_name) or empty($second_name) or empty($age) or empty($life) or empty($college)) {
+                    $errors[] = "Prosím, vyplňte všechny údaje";
+                }
+
+                if (!filter_var($age, FILTER_VALIDATE_INT)) {
+                    $errors[] = "Věk musí být číslo.";
+                } elseif ((int)$age < 10) {
+                    $errors[] = "Minimální věk pro studenta je 10 let.";
+                }
+
+                if (empty($errors)) {
+                    $studentModel->updateStudent($first_name, $second_name, $age, $life, $college, $id);
+
+                    Url::redirectUrl("/student/student");
+                }
+            }
+        }
+
+        $csrfToken = CsrfHelper::generateToken();
+
+        $this->view("admin/students/update", ['title' => "Administrace - Aktualizace informací o žákovi",
             'errors' => $errors,
             'student' => $student,
             'csrfToken' => $csrfToken]);
