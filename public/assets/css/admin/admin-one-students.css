@@ -1,5 +1,5 @@
 main {
-    background: linear-gradient(#000000, rgba(0, 0, 0, 0.559)),
+    background: linear-gradient(rgba(0, 0, 0, 0.468), rgba(0, 0, 0, 0.523)),
                 url("../../images/background/hogwarts-admin-background-2.jpg");
     background-size: cover;
     background-position: center;
