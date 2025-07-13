@@ -26,7 +26,7 @@ main {
 }
 
 .one-student-box {
-    width: 350px;
+    width: 300px;
     min-height: 130px;
     background-color: rgba(250, 232, 215, 0.8);
     display: flex;
@@ -34,6 +34,10 @@ main {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+}
+
+.one-student-box p, h2 {
+    margin: 0;
 }
 
 .one-student-box h2 {
