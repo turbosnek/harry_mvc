@@ -30,7 +30,7 @@ Class StudentController extends Controller {
             if (empty($errors)) {
                 $studentModel->create($first_name, $second_name, $age, $life, $college);
 
-                Url::redirectUrl("admin/");
+                Url::redirectUrl("/admin");
             }
         }
 
