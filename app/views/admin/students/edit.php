@@ -43,7 +43,7 @@
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
-                <input type="submit" value="Přidat žáka">
+                <input type="submit" value="Uložit">
             </form>
         <?php endif; ?>
     </section>
