@@ -182,7 +182,7 @@ Class StudentController extends Controller {
 
         $csrfToken = CsrfHelper::generateToken();
 
-        $this->view("admin/students/update", ['title' => "Administrace - Aktualizace informací o žákovi",
+        $this->view("admin/students/edit", ['title' => "Administrace - Aktualizace informací o žákovi",
             'errors' => $errors,
             'student' => $student,
             'csrfToken' => $csrfToken]);
