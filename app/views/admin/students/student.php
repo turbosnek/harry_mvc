@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
     <link rel="stylesheet" href="<?= ASSETS ?>css/admin/admin-one-students.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>query/admin/one-student-query.css" type="text/css"/>
 
     <title><?= $data['title'] ?></title>
 </head>
@@ -26,7 +27,7 @@
     <main class="min-vh-100">
         <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
             <section class="security-error">
-                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto&nbsp;stránku.</h1>
+                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na&nbsp;tuto&nbsp;stránku.</h1>
             </section>
         <?php else: ?>
             <section class="one-student">
