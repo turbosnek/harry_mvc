@@ -37,11 +37,11 @@ Class Student extends Database {
     /**
      * Získá všechny studenty z databáze
      *
-     * @param $columns - Vybrané sloupečky, které potřebujeme
+     * @param string $columns - Vybrané sloupečky, které potřebujeme
      *
      * @return array
      */
-    public function getAllStudents($columns = "*"): array {
+    public function getAllStudents(string $columns = "*"): array {
         $sql = "SELECT $columns
                 FROM student";
 
@@ -50,5 +50,27 @@ Class Student extends Database {
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Získá data o jednom studentovi
+     *
+     * @param int $id - ID studenta
+     * @param string $columns - Sloupečky z databáze, se kterými budeme pracovat
+     *
+     * @return mixed
+     */
+    public function getStudent(int $id, string $columns = "*"): mixed {
+        $sql = "SELECT $columns
+                FROM student
+                WHERE id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

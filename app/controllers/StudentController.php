@@ -67,4 +67,28 @@ Class StudentController extends Controller {
             'errors' => $errors,
             'students' => $students]);
     }
+
+    /**
+     * Získá jednoho studenta
+     *
+     * @param int $id - ID Studenta
+     *
+     * @return void
+     */
+    public function student(int $id): void
+    {
+        $studentModel = $this->model('Student');
+
+        $errors = [];
+
+        $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college");
+
+        if (empty($student)) {
+            $errors[] = "Student s ID $id nebyl nalezen";
+        }
+
+        $this->view("admin/students/student", ["title" => "Administrace - Informace o žákovi",
+            'errors' => $errors,
+            'student' => $student]);
+    }
 }
