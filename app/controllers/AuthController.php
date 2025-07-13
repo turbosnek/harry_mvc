@@ -41,7 +41,7 @@ Class AuthController extends Controller {
             if (empty($errors)) {
                 $userModel->register($first_name, $second_name, $email, password_hash($password, PASSWORD_DEFAULT), $role);
 
-                Url::redirectUrl("/");
+                Url::redirectUrl("/auth/login");
             }
         }
 
