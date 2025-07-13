@@ -31,7 +31,7 @@
                                 <!--                                    <a class="nav-link" href="students">Seznam Žáků</a>-->
                                 <!--                                </li>-->
                                 <li class="nav-item mx-2">
-                                    <a class="nav-link" href="create-student">Přidat Žáka</a>
+                                    <a class="nav-link" href="/admin/student/createStudent">Přidat Žáka</a>
                                 </li>
                             <?php endif; ?>
                             <li class="nav-item mx-2">
