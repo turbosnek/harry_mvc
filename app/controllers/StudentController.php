@@ -84,7 +84,7 @@ Class StudentController extends Controller {
         $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college");
 
         if (empty($student)) {
-            $errors[] = "Student s ID $id nebyl nalezen";
+            $errors[] = "Student s tímto ID neexistuje";
         }
 
         $this->view("admin/students/student", ["title" => "Administrace - Informace o žákovi",
