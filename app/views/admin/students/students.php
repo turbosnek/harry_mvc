@@ -26,7 +26,7 @@
     <main class="min-vh-100">
         <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
             <section class="security-error">
-                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
+                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto&nbsp;stránku.</h1>
             </section>
         <?php else: ?>
             <section class="main-heading">
@@ -35,12 +35,16 @@
 
             <section class="students-list">
                 <?php if (!empty($data['errors'])): ?>
-                    <h1><?= htmlspecialchars($data['errors']) ?></h1>
+                    <?php foreach ($data['errors'] as $error): ?>
+                        <h1><?= htmlspecialchars($error) ?></h1>
+                    <?php endforeach; ?>
                 <?php else: ?>
-                    <div class="one-student">
+                    <div class="all-students">
                         <?php foreach ($data['students'] as $one_student): ?>
-                            <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
-                            <a href="#">Více informací</a>
+                            <div class="one-student">
+                                <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
+                                <a href="#">Více informací</a>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>

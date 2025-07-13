@@ -1,0 +1,65 @@
+main {
+    background: linear-gradient(#000000, rgba(0, 0, 0, 0.559)),
+                url("../../images/background/hogwarts-admin-background-1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.security-error h1 {
+    text-align: center;
+    color: #ffffff;
+    padding-top: 400px;
+}
+
+/* Main Heading section */
+.main-heading h1 {
+    text-align: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    color: rgb(238, 238, 238);
+    font-size: 30px;
+}
+
+/* Students List Section */
+.students-list h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-top: 400px;
+}
+
+.all-students {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-bottom: 30px;
+}
+
+.one-student {
+    width: 295px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(250, 235, 215, 0.849);
+    text-align: center;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+}
+
+.one-student:hover {
+    transform: scale(1.05);
+}
+
+.one-student a {
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px 20px;
+    background-color: #a17e20;
+    color: #ffffff;
+    margin-top: 15px;
+}
