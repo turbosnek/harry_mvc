@@ -34,7 +34,7 @@
             </section>
 
             <section class="filter">
-                <input class="filter-input" type="text">
+                <input class="filter-input" type="text" placeholder="Filtrovat studenty">
             </section>
 
             <section class="students-list">
