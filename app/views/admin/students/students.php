@@ -43,7 +43,7 @@
                         <?php foreach ($data['students'] as $one_student): ?>
                             <div class="one-student">
                                 <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
-                                <a href="#">Více informací</a>
+                                <a href="/student/student/<?= $one_student['id'] ?>">Více informací</a>
                             </div>
                         <?php endforeach; ?>
                     </div>
