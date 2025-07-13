@@ -36,10 +36,10 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <div class="one-student-box">
-                        <h2><?= htmlspecialchars($data['first_name'] . " " . htmlspecialchars($data['second_name'])) ?></h2>
-                        <p>Věk: <?= htmlspecialchars($data['age']) ?></p>
-                        <p>Informace o žákovi: <?= htmlspecialchars($data['life']) ?></p>
-                        <p>Kolej: <?= htmlspecialchars($data['college']) ?></p>
+                        <h2><?= htmlspecialchars($data['student']['first_name'] . " " . htmlspecialchars($data['student']['second_name'])) ?></h2>
+                        <p>Věk: <?= htmlspecialchars($data['student']['age']) ?></p>
+                        <p>Informace o žákovi: <?= htmlspecialchars($data['student']['life']) ?></p>
+                        <p>Kolej: <?= htmlspecialchars($data['student']['college']) ?></p>
                     </div>
                 <?php endif; ?>
             </section>
