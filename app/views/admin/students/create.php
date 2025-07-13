@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
-    <link rel="stylesheet" href="<?= ASSETS ?>css/admin/create-student.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>css/admin/admin-create-student.css" type="text/css"/>
 
     <title><?= $data['title'] ?></title>
 </head>
