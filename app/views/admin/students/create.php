@@ -15,13 +15,15 @@
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
 
+    <link rel="stylesheet" href="<?= ASSETS ?>css/admin/create-student.css" type="text/css"/>
+
     <title><?= $data['title'] ?></title>
 </head>
 
 <body>
     <?php $this->view("admin-header") ?>
 
-    <main class="min-vh-100 d-flex flex-column justify-content-center align-items-center">
+    <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
         <section class="add-form">
             <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
                 <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>

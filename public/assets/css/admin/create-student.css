@@ -1,0 +1,48 @@
+main {
+    background: linear-gradient(black, rgb(5, 5, 76));
+}
+
+.add-form h1 {
+    color: #ffffff;
+}
+
+form {
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+form input, form textarea {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    font-size: 20px;
+    color: #ffffff;
+    padding: 15px;
+    outline: none;
+}
+
+form input {
+    width: 270px;
+}
+
+form textarea {
+    width: 555px;
+}
+
+.btn {
+    background-color: #ad8924;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    color: #ffffff;
+}
+
+.btn:hover {
+    background-color: #c29a2b;
+    color: #ffffff;
+}
