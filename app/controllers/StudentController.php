@@ -23,6 +23,10 @@ Class StudentController extends Controller {
                 $errors[] = "Prosím, vyplňte všechny údaje";
             }
 
+            if ($age < 10) {
+                $errors[] = "Minimální věk pro registraci je 10 Let.";
+            }
+
             if (empty($errors)) {
                 $studentModel->create($first_name, $second_name, $age, $life, $college);
 
