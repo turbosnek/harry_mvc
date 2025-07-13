@@ -23,7 +23,7 @@
 <body>
 <?php $this->view("admin-header") ?>
 
-<main class="min-vh-100">
+<main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
     <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
         <section class="security-error">
             <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto&nbsp;stránku.</h1>
@@ -35,10 +35,10 @@
                     <h1><?= htmlspecialchars($error) ?></h1>
                 <?php endforeach; ?>
             <?php else: ?>
-                <form action="" method="POST">
+                <form action="" method="POST" class="d-flex flex-column justify-content-center align-items-center">
                     <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
                     <p>Jste si jistí, že chcete smazat žáka <?= htmlspecialchars($data['student']['first_name']) . " " . htmlspecialchars($data['student']['second_name']) ?>?</p>
-                    <div class="btns">
+                    <div class="btns d-flex flex-row justify-content-around">
                         <button>Smazat</button>
                         <a href="/student/student/<?= $data['student']['id'] ?>">Zrušit</a>
                     </div>
