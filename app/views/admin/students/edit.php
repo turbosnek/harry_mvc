@@ -31,11 +31,11 @@
         <?php else: ?>
             <form action="" method="POST">
                 <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
-                <input type="text" name="first_name" placeholder="Křestní jméno" value="<?= htmlspecialchars(isset($_POST['first_name']) ? $_POST['first_name']:  '') ?>">
-                <input type="text" name="second_name" placeholder="Příjmení" value="<?= htmlspecialchars(isset($_POST['second_name']) ? $_POST['second_name']:  '') ?>">
-                <input type="number" name="age" placeholder="Věk" value="<?= htmlspecialchars(isset($_POST['age']) ? $_POST['age']:  '') ?>">
-                <input type="text" name="college" placeholder="Kolej" value="<?= htmlspecialchars(isset($_POST['college']) ? $_POST['college']:  '') ?>">
-                <textarea name="life" placeholder="Informace o žákovi"><?= htmlspecialchars(isset($_POST['life']) ? $_POST['life']:  '') ?></textarea>
+                <input type="text" name="first_name" placeholder="Křestní jméno" value="<?= htmlspecialchars(isset($data['student']['first_name']) ? $data['student']['first_name']:  '') ?>">
+                <input type="text" name="second_name" placeholder="Příjmení" value="<?= htmlspecialchars(isset($data['student']['second_name']) ? $data['student']['second_name']:  '') ?>">
+                <input type="number" name="age" placeholder="Věk" value="<?= htmlspecialchars(isset($data['student']['age']) ? $data['student']['age']:  '') ?>">
+                <input type="text" name="college" placeholder="Kolej" value="<?= htmlspecialchars(isset($data['student']['college']) ? $data['student']['college']:  '') ?>">
+                <textarea name="life" placeholder="Informace o žákovi"><?= htmlspecialchars(isset($data['student']['life']) ? $data['student']['life']:  '') ?></textarea>
                 <?php if (!empty($data['errors'])): ?>
                     <ul>
                         <?php foreach ($data['errors'] as $error): ?>
