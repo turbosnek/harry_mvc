@@ -36,10 +36,11 @@
                 <?php endforeach; ?>
             <?php else: ?>
                 <form action="" method="POST">
-                    <p>Jste si jistí, že chcete smazat žáka <?= $data['student']['first_name'] . " " . $data['student']['second_name'] ?>?</p>
+                    <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
+                    <p>Jste si jistí, že chcete smazat žáka <?= htmlspecialchars($data['student']['first_name']) . " " . htmlspecialchars($data['student']['second_name']) ?>?</p>
                     <div class="btns">
                         <button>Smazat</button>
-                        <a href="/student/student/<?= $data['student']['id'] ?>"></a>
+                        <a href="/student/student/<?= $data['student']['id'] ?>">Zrušit</a>
                     </div>
                 </form>
             <?php endif; ?>

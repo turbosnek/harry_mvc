@@ -44,7 +44,7 @@
                     </div>
                         <div class="one-student-buttons">
                             <a class="edit-one-student" href="#">Editovat</a>
-                            <a class="delete-one-student" href="#">Smazat</a>
+                            <a class="delete-one-student" href="/student/delete/<?= $data['student']['id'] ?>">Smazat</a>
                         </div>
                 <?php endif; ?>
             </section>

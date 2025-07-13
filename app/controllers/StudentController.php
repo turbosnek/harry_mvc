@@ -105,6 +105,8 @@ Class StudentController extends Controller {
 
         $errors = [];
 
+        $student = $studentModel->getStudent($id, "id, first_name, second_name");
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
                 $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
@@ -113,8 +115,6 @@ Class StudentController extends Controller {
             if (!filter_var($id, FILTER_VALIDATE_INT)) {
                 $errors[] = "Neplatné ID studenta.";
             } else {
-                $student = $studentModel->getStudent($id);
-
                 if (empty($student)) {
                     $errors[] = "Student s tímto ID neexistuje.";
                 } else {
@@ -131,6 +131,7 @@ Class StudentController extends Controller {
 
         $this->view("admin/students/delete", ['title' => "Administrace - Smazaní žáka",
             'errors' => $errors,
+            'student' => $student,
             'csrfToken' => $csrfToken]);
     }
 }
