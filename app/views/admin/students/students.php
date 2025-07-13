@@ -38,8 +38,9 @@
                     <h1><?= htmlspecialchars($data['errors']) ?></h1>
                 <?php else: ?>
                     <div class="one-student">
-                        <?php foreach ($students as $one_student): ?>
+                        <?php foreach ($data['students'] as $one_student): ?>
                             <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
+                            <a href="#">Více informací</a>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
