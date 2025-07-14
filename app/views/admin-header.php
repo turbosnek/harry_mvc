@@ -49,6 +49,9 @@
                                 </li>
                             <?php endif; ?>
                             <li class="nav-item mx-2">
+                                <a class="nav-link" href="#">Můj profil</a>
+                            </li>
+                            <li class="nav-item mx-2">
                                 <a class="nav-link" href="/auth/logout">Odhlásit</a>
                             </li>
                         <?php else: ?>
