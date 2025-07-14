@@ -34,9 +34,11 @@
 
             <section class="students-list">
                 <?php if (!empty($data['errors'])): ?>
-                    <?php foreach ($data['errors'] as $error): ?>
-                        <h1><?= htmlspecialchars($error) ?></h1>
-                    <?php endforeach; ?>
+                    <div class="errors">
+                        <?php foreach ($data['errors'] as $error): ?>
+                            <h1><?= htmlspecialchars($error) ?></h1>
+                        <?php endforeach; ?>
+                    </div>
                 <?php else: ?>
                     <div class="all-students">
                         <?php foreach ($data['students'] as $one_student): ?>
