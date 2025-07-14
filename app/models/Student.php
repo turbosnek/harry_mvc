@@ -162,4 +162,60 @@ Class Student extends Database
 
         return false;
     }
+
+    /**
+     * Aktualizuje informace o studentovi
+     *
+     * @param string $first_name - Křestní jmeéno studenta
+     * @param string $second_name - Příjmení studenta
+     * @param int $age- Věk studenta
+     * @param string $life - Informace o studentovi
+     * @param string $college - Kolej studenta
+     * @param int $id - ID studenta
+     *
+     * @return bool
+     */
+    public function updateStudent(string $first_name, string $second_name, int $age, string $life, string $college, int $id): bool
+    {
+        try {
+            // Spuštění transakce
+            $this->conn->beginTransaction();
+
+            $sql = "UPDATE student
+                SET first_name = :first_name,
+                    second_name = :second_name,
+                    age = :age,
+                    life = :life,
+                    college = :college
+                WHERE id = :id";
+
+            $stmt = $this->conn->prepare($sql);
+
+
+            $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+            $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
+            $stmt->bindValue(":age", $age, PDO::PARAM_INT);
+            $stmt->bindValue(":life", $life, PDO::PARAM_STR);
+            $stmt->bindValue(":college", $college, PDO::PARAM_STR);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Updatování studenta selhalo.");
+            }
+
+            // Potvrzení transakce
+            $this->conn->commit();
+            return true;
+
+        } catch (Exception $e) {
+            // Zpětné vrácení změn při chybě
+            $this->conn->rollBack();
+
+            // Logování chyby (cesta k souboru je relativní k tomuto souboru)
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při updatování studenta: " . $e->getMessage() . "\n", 3, $logPath);
+
+            return false;
+        }
+    }
 }
