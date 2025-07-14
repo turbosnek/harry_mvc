@@ -2,7 +2,8 @@
 
 Class User extends Database
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->conn = $this->connect();
     }
 
@@ -11,33 +12,44 @@ Class User extends Database
      *
      * @param string $first_name - Křestní jméno uživatele
      * @param string $second_name - Příjmení uživatele
-     * @param string $email - email uživatele
-     * @param string $password - Hewslo uživatele
-     * @param string $role - Uživatelská role. Defaultně to přidá ROLE_USER
+     * @param string $email - Email uživatele
+     * @param string $password - Heslo uživatele (již hashované)
+     * @param string $role - Uživatelská role, např. ROLE_USER
      *
      * @return bool
      */
     public function register(string $first_name, string $second_name, string $email, string $password, string $role): bool
     {
-        $sql = "INSERT INTO user (first_name, second_name, email, password, role)
-                VALUES (:first_name, :second_name, :email, :password, :role)";
-
-        $stmt = $this->conn->prepare($sql);
-
-        $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
-        $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
-        $stmt->bindValue(":email", $email, PDO::PARAM_STR);
-        $stmt->bindValue(":password", $password, PDO::PARAM_STR);
-        $stmt->bindValue(":role", $role, PDO::PARAM_STR);
-
         try {
-            if ($stmt->execute()) {
-                return true;
-            } else {
-                throw new Exception("Vytvoření uživatele selhalo");
+            // Spuštění transakce
+            $this->conn->beginTransaction();
+
+            $sql = "INSERT INTO user (first_name, second_name, email, password, role)
+                    VALUES (:first_name, :second_name, :email, :password, :role)";
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+            $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
+            $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+            $stmt->bindValue(":password", $password, PDO::PARAM_STR);
+            $stmt->bindValue(":role", $role, PDO::PARAM_STR);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Vytvoření uživatele selhalo.");
             }
+
+            // Potvrzení transakce
+            $this->conn->commit();
+            return true;
+
         } catch (Exception $e) {
-            error_log(date('d/m/y H:i') . " " ."Chyba při registraci uživatele: " . $e->getMessage() . "\n", 3, "../../../errors/error.log");
+            // Zpětné vrácení změn při chybě
+            $this->conn->rollBack();
+
+            // Logování chyby (cesta k souboru je relativní k tomuto souboru)
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při registraci uživatele: " . $e->getMessage() . "\n", 3, $logPath);
+
             return false;
         }
     }
@@ -47,26 +59,25 @@ Class User extends Database
      *
      * @param string $email - Email uživatele
      *
-     * @return bool
+     * @return bool - Vrací true, pokud email existuje
      */
     public function checkEmail(string $email): bool
     {
-        $sql = "SELECT email FROM user
-                WHERE email = :email limit 1";
+        $sql = "SELECT email FROM user WHERE email = :email LIMIT 1";
 
         $stmt = $this->conn->prepare($sql);
-
         $stmt->bindParam(":email", $email, PDO::PARAM_STR);
 
         try {
             if ($stmt->execute()) {
                 return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
             } else {
-                throw new Exception("Získání emailu selhalo");
+                throw new Exception("Dotaz na email selhal.");
             }
         } catch (Exception $e) {
-            error_log(date('d/m/y H:i') . " " ."Chyba při získání emailu uživatele: " . $e->getMessage() . "\n", 3, "../../../errors/error.log");
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při kontrole emailu: " . $e->getMessage() . "\n", 3, $logPath);
+            return false;
         }
-        return false;
     }
 }
