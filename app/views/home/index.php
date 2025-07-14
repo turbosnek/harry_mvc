@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?= ASSETS ?>css/general.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/header.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>query/header-query.css" type="text/css"/>
-    <link rel="stylesheet" href="<?= ASSETS ?>css/public/footer.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
 
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/index.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/index-query.css" type="text/css"/>
@@ -30,7 +30,7 @@
         </section>
     </main>
 
-<!--    --><?php //$this->view("footer") ?>
+    <?php $this->view("footer") ?>
     <script src="<?= ASSETS ?>js/header.js"></script>
 </body>
 </html>
