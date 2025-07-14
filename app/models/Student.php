@@ -139,4 +139,27 @@ Class Student extends Database
             return null;
         }
     }
+
+    /**
+     * Smaže studenta z databáze podle jeho ID
+     *
+     * @param int $id - ID studenta
+     * @return bool
+     */
+    public function deleteStudent(int $id): bool {
+        $sql = "DELETE FROM student WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+        try {
+            $stmt->execute();
+            return $stmt->rowCount() > 0; // Vrací true pouze pokud byl student skutečně smazán
+        } catch (Exception $e) {
+            // Logování chyby
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při mazání studenta (ID: $id): " . $e->getMessage() . "\n",3, $logPath);
+        }
+
+        return false;
+    }
 }
