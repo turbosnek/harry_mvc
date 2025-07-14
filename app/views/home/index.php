@@ -22,9 +22,9 @@
 <body>
     <?php $this->view("header") ?>
 
-    <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
+    <main>
         <section class="main-heading">
-            <img src="<?= ASSETS ?>images/background/hogwarts-logo.png" alt="Škola čar a kouzel v Bradavicích logo">
+            <img src="<?= ASSETS ?>images/layout/hogwarts-logo.png" alt="Škola čar a kouzel v Bradavicích logo">
             <h1>Škola čar a&nbsp;kouzel</h1>
             <h2>Bradavice</h2>
         </section>
