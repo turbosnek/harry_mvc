@@ -102,4 +102,27 @@ Class User extends Database {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Získá informace o uživateli podle jeho ID
+     *
+     * @param int $id - ID uživatele
+     * @param array $columns - Výběr sloupečků z databáze
+     *
+     * @return mixed
+     */
+    public function getUser(int $id, array $columns = ["*"]): mixed {
+        $allowed = ['id', 'first_name', 'second_name', 'email', 'password', 'role', '*'];
+
+        $selected = array_intersect($columns, $allowed);
+        $columnString = implode(', ', $selected ?: ['*']);
+
+        $sql = "SELECT $columnString FROM user WHERE id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
