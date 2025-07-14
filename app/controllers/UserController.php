@@ -9,7 +9,7 @@ Class UserController extends Controller {
 
         $errors = [];
 
-        $users = $userModel->getAllUsers("id, first_name, second_name");
+        $users = $userModel->getAllUsers(["id, first_name, second_name"]);
 
         if (empty($users)) {
             $errors[] = "Žádní uživatelé nebyli nalezeni";
