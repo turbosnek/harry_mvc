@@ -80,4 +80,26 @@ Class User extends Database {
 
         return false;
     }
+
+    /**
+     * Získá všchny uživatele z databáze
+     *
+     * @param array $columns - Výběr určitých sloupečků z tadabáze
+     *
+     * @return array
+     */
+    public function getAllUsers(array $columns = ["*"]): array
+    {
+        $allowed = ['id', 'first_name', 'second_name', 'email', 'role', '*']; // whitelist
+
+        // Odfiltruj jen povolené
+        $selected = array_filter($columns, fn($col) => in_array($col, $allowed));
+
+        $sql = "SELECT " . implode(', ', $selected ?: ['*']) . " FROM user";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
