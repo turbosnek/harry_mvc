@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <?php $this->view("header") ?>
+    <?php $this->view("admin-header") ?>
 
     <main>
         <section class="main-heading">

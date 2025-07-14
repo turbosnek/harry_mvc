@@ -1,5 +1,5 @@
-/* --- ZÁKLADNÍ STYLY --- */
-
+/* === ZÁKLADNÍ STYLY === */
+/* desktop.css */
 nav {
     height: 70px;
 }
@@ -35,8 +35,6 @@ nav {
     z-index: 1002;
 }
 
-/* --- NAVIGAČNÍ ODKAZY --- */
-
 .nav-menu {
     display: flex;
     align-items: center;
@@ -51,6 +49,7 @@ nav {
 
 .nav-links li {
     margin-left: 20px;
+    position: relative;
 }
 
 .nav-links a {
@@ -61,4 +60,68 @@ nav {
 
 .nav-links a:hover {
     color: #ffda00;
+}
+
+.has-submenu {
+    position: relative;
+}
+
+.submenu-toggle {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.submenu-toggle::after {
+    content: " \25BC";
+    font-size: 0.8em;
+    margin-left: 0.4em;
+    transition: transform 0.3s ease;
+}
+
+.has-submenu.open > .submenu-toggle::after {
+    content: " \25B2";
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #000;
+    border: 1px solid #222;
+    min-width: 200px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+}
+
+.has-submenu.open .submenu {
+    display: block;
+}
+
+.submenu li {
+    border-bottom: 1px solid #222;
+}
+
+.submenu li:last-child {
+    border-bottom: none;
+}
+
+.submenu a {
+    display: block;
+    padding: 12px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+}
+
+.submenu a:hover {
+    color: #ffda00;
+}
+
+.mobile-only {
+    display: none;
 }
