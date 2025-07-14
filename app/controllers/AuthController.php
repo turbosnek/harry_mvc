@@ -63,4 +63,88 @@ Class AuthController extends Controller
             'errors' => $errors,
             'csrfToken' => $csrfToken]);
     }
+
+    /**
+     * Zpracování přihlášení uživatele
+     *
+     * @return void
+     */
+    public function login(): void
+    {
+        $userModel = $this->model('User');
+
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            // CSRF
+            if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
+                $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
+            }
+
+            $log_email = strtolower(trim($_POST['log_email']));
+            $log_password = trim($_POST['log_password']);
+
+            if (empty($log_email) || empty($log_password)) {
+                $errors[] = "Vyplňte prosím všechny údaje.";
+            } elseif (!filter_var($log_email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = "Neplatný formát emailu";
+            }
+
+            if (empty($errors)) {
+                $user = $userModel->login($log_email, $log_password);
+
+                if ($user) {
+                    // Fixation attack defend More information:
+                    // https://owasp.org/www-community/attacks/Session_fixation
+                    session_regenerate_id(true);
+
+                    $_SESSION['id'] = $user['id'];
+                    $_SESSION['first_name'] = $user['first_name'];
+                    $_SESSION['second_name'] = $user['second_name'];
+                    $_SESSION['role'] = $user['role'];
+
+                    URL::redirectUrl("/");
+                } else {
+                    $errors[] = "Neplatné přístupové údaje";
+                }
+            }
+        }
+
+        $csrfToken = CsrfHelper::generateToken();
+
+        $this->view("auth/login", ['title' => "Přihlášení",
+            'errors' => $errors,
+            'csrfToken' => $csrfToken]);
+    }
+
+    /**
+     * Odhlášení uživatele
+     *
+     * @return void
+     */
+    public function logout(): void
+    {
+        // Initialize the session.
+        // If you are using session_name("something"), don't forget it now!
+        session_start();
+
+        // Unset all of the session variables.
+        $_SESSION = [];
+
+        // If it's desired to kill the session, also delete the session cookie.
+        // Note: This will destroy the session, and not just the session data!
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+        // Finally, destroy the session.
+        session_destroy();
+
+        // Redirect to login page or homepage
+        URL::redirectUrl("/");
+    }
 }

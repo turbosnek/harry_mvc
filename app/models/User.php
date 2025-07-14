@@ -80,4 +80,38 @@ Class User extends Database
             return false;
         }
     }
+
+    /**
+     * Přihlášení uživatele do systému
+     *
+     * @param string $email - Email uživatele
+     * @param string $password - Heslo uživatele
+     *
+     * @return array|false
+     */
+    public function login(string $email, string $password): array|false
+    {
+        $sql = "SELECT *
+                FROM user
+                WHERE email = :email";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+
+        try {
+            $stmt->execute();
+
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($user and password_verify($password, $user['password'])) {
+                return $user;
+            }
+
+
+        } catch (Exception $e) {
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při přihlášení: " . $e->getMessage() . "\n", 3, $logPath);
+        }
+        return false;
+    }
 }
