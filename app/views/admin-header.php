@@ -21,7 +21,7 @@
                                 <a href="#" class="submenu-toggle">Žáci</a>
                                 <ul class="submenu">
                                     <li><a href="/students/list">Seznam žáků</a></li>
-                                    <li><a href="/students/add">Přidat žáka</a></li>
+                                    <li><a href="/student/create">Přidat žáka</a></li>
                                 </ul>
                             </li>
                         <?php endif; ?>
