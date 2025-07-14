@@ -25,7 +25,7 @@
     <main>
         <section class="add-form">
             <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
-                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
+                <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto&nbsp;stránku.</h1>
             <?php else: ?>
                 <form action="" method="POST">
                     <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">

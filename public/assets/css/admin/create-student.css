@@ -10,6 +10,7 @@ main {
 .add-form h1 {
     font-size: 50px;
     letter-spacing: 2px;
+    color: #fff;
 }
 
 form {
@@ -52,7 +53,7 @@ input[type="submit"]:hover {
     background-color: #c29a2b;
 }
 
-.registration-form ul {
+.add-form ul {
     list-style-type: none;
     color: red;
     font-size: 20px;
