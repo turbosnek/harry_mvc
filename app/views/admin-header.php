@@ -41,7 +41,7 @@
                                         Uživatelé
                                     </a>
                                     <ul class="dropdown-menu dropdown-submenu" aria-labelledby="studentDropdown">
-                                        <li><a class="dropdown-item" href="#">Seznam uživatelů</a></li>
+                                        <li><a class="dropdown-item" href="/user/users">Seznam uživatelů</a></li>
                                         <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
                                             <li><a class="dropdown-item" href="#">Přidat uživatele</a></li>
                                         <?php endif; ?>
