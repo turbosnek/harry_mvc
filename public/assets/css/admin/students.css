@@ -1,0 +1,70 @@
+main {
+    min-height: 100vh;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.238), rgba(0, 0, 0, 0.472)),
+                url("../../images/layout/hogwarts-admin-background-1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Security Section */
+.security-error {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.security-error h1 {
+    font-size: 50px;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+/* Main Heading section */
+.main-heading h1 {
+    text-align: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    color: rgb(238, 238, 238);
+    font-size: 30px;
+}
+
+/* Students List Section */
+.all-students {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-bottom: 30px;
+}
+
+.one-student {
+    width: 250px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(250, 235, 215, 0.849);
+    text-align: center;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+}
+
+.one-student:hover {
+    transform: scale(1.05);
+}
+
+.one-student a {
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px 20px;
+    background-color: #a17e20;
+    color: #ffffff;
+    margin-top: 15px;
+}
