@@ -54,4 +54,42 @@ Class Student extends Database
             return false;
         }
     }
+
+    /**
+     * Získá všechny studenty z databáze
+     *
+     * @param array $columns - Pole názvů sloupců, které chceme získat
+     *
+     * @return array|false - Pole studentů nebo false při chybě
+     */
+    public function getAllStudents(array $columns = ['id', 'first_name', 'second_name']): array|false
+    {
+        // Povolené sloupce – whitelist
+        $allowedColumns = ['id', 'first_name', 'second_name'];
+
+        // Filtrace vstupního pole podle whitelistu
+        $filteredColumns = array_intersect($columns, $allowedColumns);
+
+        // Pokud je výsledek prázdný, zamezíme SELECT bez sloupců
+        if (empty($filteredColumns)) {
+            return false;
+        }
+
+        // Sestavení dotazu
+        $columnList = implode(", ", $filteredColumns);
+        $sql = "SELECT $columnList FROM student";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            // Logování chyby
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při získávání studentů: " . $e->getMessage() . "\n", 3, $logPath);
+
+            return false;
+        }
+    }
 }
