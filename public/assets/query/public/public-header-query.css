@@ -1,0 +1,14 @@
+/* Responsive */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: flex;
+    }
+
+    .nav-links {
+        flex-direction: column;
+    }
+}

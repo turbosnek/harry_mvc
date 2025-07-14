@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<!--    --><?php //$this->view("header") ?>
+    <?php $this->view("header") ?>
 
     <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
         <section class="main-heading">
@@ -31,5 +31,6 @@
     </main>
 
 <!--    --><?php //$this->view("footer") ?>
+    <script src="<?= ASSETS ?>js/public-header.js"></script>
 </body>
 </html>
