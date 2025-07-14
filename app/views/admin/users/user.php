@@ -40,7 +40,7 @@
                         <h2><?= htmlspecialchars($data['user']['first_name'] . " " . htmlspecialchars($data['user']['second_name'])) ?></h2>
                         <p>Email: <?= htmlspecialchars($data['user']['email']) ?></p>
                         <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
-                            <p>Kolej: <?= htmlspecialchars($data['user']['role']) ?></p>
+                            <p>Role: <?= htmlspecialchars($data['user']['role']) ?></p>
                         <?PHP endif; ?>
                     </div>
                     <div class="one-user-buttons">
