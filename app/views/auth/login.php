@@ -26,8 +26,8 @@
             <form action="" method="POST">
                 <h1>Přihlášení</h1>
                 <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
-                <input type="email" name="log_email" class="email" placeholder="Email" value="<?= htmlspecialchars(isset($_POST['log_email']) ? $_POST['log_email']:  '') ?>" required><br />
-                <input type="password" name="log_password" class="password" placeholder="Heslo" required><br />
+                <input type="email" name="log_email" class="email" placeholder="Email" value="<?= htmlspecialchars(isset($_POST['log_email']) ? $_POST['log_email']:  '') ?>"><br />
+                <input type="password" name="log_password" class="password" placeholder="Heslo"><br />
                 <?php if (!empty($data['errors'])): ?>
                     <ul>
                         <?php foreach ($data['errors'] as $error): ?>
