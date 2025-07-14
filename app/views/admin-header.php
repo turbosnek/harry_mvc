@@ -36,6 +36,17 @@
                                         <li><a class="dropdown-item" href="/student/createStudent">Přidat žáka</a></li>
                                     </ul>
                                 </li>
+                                <li class="nav-item dropdown mx-2">
+                                    <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Uživatelé
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-submenu" aria-labelledby="studentDropdown">
+                                        <li><a class="dropdown-item" href="#">Seznam uživatelů</a></li>
+                                        <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
+                                            <li><a class="dropdown-item" href="/student/createStudent">Přidat uživatele</a></li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </li>
                             <?php endif; ?>
                             <li class="nav-item mx-2">
                                 <a class="nav-link" href="/auth/logout">Odhlásit</a>
