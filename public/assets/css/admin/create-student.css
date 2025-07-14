@@ -43,6 +43,7 @@ form textarea {
 input[type="submit"] {
     background-color: #ad8924;
     border: none;
+    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s linear;
 }
