@@ -7,6 +7,11 @@ main {
     align-items: center;
 }
 
+.add-form h1 {
+    font-size: 50px;
+    letter-spacing: 2px;
+}
+
 form {
     width: 600px;
     display: flex;
@@ -44,4 +49,10 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #c29a2b;
+}
+
+.registration-form ul {
+    list-style-type: none;
+    color: red;
+    font-size: 20px;
 }
