@@ -1,20 +1,17 @@
 <header>
     <nav class="custom-navbar">
         <div class="nav-container">
-            <!-- Logo -->
             <div class="logo">
-                <img src="<?= ASSETS ?>images/layout/hogwarts-logo.png" alt="Škola čar a kouzel v Bradavicích logo">
+                <img src="<?= ASSETS ?>images/layout/hogwarts-logo.png" alt="Logo">
             </div>
 
-            <!-- Hamburger ikonka -->
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-                &#9776;
-            </button>
+            <!-- Hamburger menu -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">&#9776;</button>
 
-            <!-- Menu -->
+            <!-- Navigační odkazy -->
             <div class="nav-menu" id="navMenu">
-                <div class="nav-header">
-                    <h5>Menu</h5>
+                <div class="nav-header mobile-only">
+                    <span class="menu-title">Menu</span>
                     <button class="close-btn" id="closeMenu" aria-label="Close menu">&times;</button>
                 </div>
                 <ul class="nav-links">
