@@ -44,8 +44,8 @@
                         <?PHP endif; ?>
                     </div>
                     <div class="one-user-buttons">
-                        <a class="edit-one-user" href="/user/edit/<?= $data['student']['id'] ?>">Editovat</a>
-                        <a class="edit-one-user" href="/user/password/<?= $data['student']['id'] ?>">Změnit heslo</a>
+                        <a class="edit-one-user" href="/user/edit/<?= $data['user']['id'] ?>">Editovat</a>
+                        <a class="edit-one-user" href="/user/password/<?= $data['user']['id'] ?>">Změnit heslo</a>
                         <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
                             <a class="delete-one-user" href="/user/delete/<?= $data['user']['id'] ?>">Smazat</a>
                         <?php endif; ?>
