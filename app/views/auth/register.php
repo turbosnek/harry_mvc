@@ -21,7 +21,7 @@
 <body>
     <?php $this->view("header") ?>
 
-    <main class="min-vh-100 d-flex flex-row justify-content-center align-items-center">
+    <main>
         <section class="registration-form">
             <form action="" method="POST">
                 <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
