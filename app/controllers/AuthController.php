@@ -50,7 +50,7 @@ Class AuthController extends Controller
 
             if (empty($errors)) {
                 if ($userModel->register($first_name, $second_name, $email, password_hash($password, PASSWORD_DEFAULT), $role)) {
-                    Url::redirectUrl("/auth/login");
+                    Url::redirectUrl("/");
                 } else {
                     $errors[] = "Registrace selhala. Zkuste to znovu.";
                 }
