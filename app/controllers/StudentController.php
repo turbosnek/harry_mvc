@@ -36,7 +36,7 @@ Class StudentController extends Controller
 
             if (empty($errors)) {
                 if ($studentModel->create($first_name, $second_name, $age, $life, $college)) {
-                    Url::redirectUrl("admin/");
+                    Url::redirectUrl("/admin/");
                 } else {
                     $errors[] = "Přidání nového studenta selhalo. Zkuste to prosím znovu.";
                 }
