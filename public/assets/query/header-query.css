@@ -14,7 +14,7 @@
         flex-direction: column;
         background-color: #000;
         height: 100%;
-        width: 250px;
+        width: 400px;
         z-index: 1001;
         padding-top: 60px;
         will-change: transform;
