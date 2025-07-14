@@ -78,4 +78,36 @@ Class StudentController extends Controller
             "students" => $students
         ]);
     }
+
+    /**
+     * Získá jednoho studenta
+     *
+     * @param int $id
+     *
+     * @return void
+     */
+    public function student(int $id): void
+    {
+        $studentModel = $this->model('Student');
+
+        $errors = [];
+
+        try {
+            $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college");
+
+            if (!$student) {
+                $errors[] = "Student s tímto ID neexistuje.";
+            }
+
+        } catch (InvalidArgumentException $e) {
+            $errors[] = "Chybný požadavek: " . $e->getMessage();
+            $student = null;
+        }
+
+        $this->view("admin/students/student", [
+            "title" => "Administrace - Informace o žákovi",
+            "errors" => $errors,
+            "student" => $student
+        ]);
+    }
 }
