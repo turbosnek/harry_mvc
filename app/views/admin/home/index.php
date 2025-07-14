@@ -36,6 +36,6 @@
 
     <?php $this->view("footer") ?>
 
-    <script src="<?= ASSETS ?>js/bootstrap.js"></script>
+    <script src="<?= ASSETS ?>js/header.js"></script>
 </body>
 </html>
