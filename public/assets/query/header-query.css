@@ -3,24 +3,25 @@
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
-        z-index: 1002;
     }
 
     .nav-menu {
         position: fixed;
         top: 0;
-        left: -100%;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
         flex-direction: column;
         background-color: #000;
         height: 100%;
-        width: 399px;
-        transition: left 0.3s ease-in-out;
+        width: 250px;
         z-index: 1001;
         padding-top: 60px;
+        will-change: transform;
     }
 
     .nav-menu.active {
-        left: 0;
+        transform: translateX(0);
     }
 
     .nav-header {
@@ -75,5 +76,21 @@
 @media (min-width: 769px) {
     .mobile-only {
         display: none;
+    }
+
+    .nav-menu {
+        transform: none !important;
+        position: static;
+        height: auto;
+        width: auto;
+        padding-top: 0;
+    }
+
+    .nav-links {
+        flex-direction: row;
+    }
+
+    .nav-links li {
+        margin-left: 20px;
     }
 }
