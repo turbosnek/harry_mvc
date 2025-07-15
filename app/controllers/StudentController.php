@@ -98,7 +98,8 @@ Class StudentController extends Controller
             $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college, profile_image");
 
             if (!$student) {
-                $errors[] = "Student s tímto ID neexistuje.";
+                $nbsp = "\u{00A0}"; // Unicode znak nezlomitelné mezery
+                $errors[] = "Student s{$nbsp}tímto{$nbsp}ID neexistuje.";
             }
 
         } catch (InvalidArgumentException $e) {

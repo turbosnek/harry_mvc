@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
 
     <link rel="stylesheet" href="<?= ASSETS ?>css/admin/student.css" type="text/css"/>
+<!--    <link rel="stylesheet" href="--><?php //= ASSETS ?><!--query/admin/student.css" type="text/css"/>-->
 
     <title><?= $data['title'] ?></title>
 </head>
