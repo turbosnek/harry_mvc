@@ -23,6 +23,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
 }
 
 .one-student-buttons a {
