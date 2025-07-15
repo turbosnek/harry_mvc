@@ -23,15 +23,17 @@
     <?php $this->view("admin-header") ?>
 
     <main>
-        <section class="main-heading">
-            <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
+        <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
+            <section class="security-error">
                 <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
-            <?php else: ?>
+            </section>
+        <?php else: ?>
+            <section class="main-heading">
                 <h1>Vítejte v&nbsp;administraci</h1>
                 <h2>Jsi přihlášen jako: <?= $_SESSION['first_name'] . "&nbsp;" . $_SESSION['second_name'] ?></h2>
                 <h2>Tvoje uživatelská role je: <?= str_replace(["ROLE_", "_"], "&nbsp;", $_SESSION['role']) ?></h2>
-            <?php endif; ?>
-        </section>
+            </section>
+        <?php endif; ?>
     </main>
 
     <?php $this->view("footer") ?>
