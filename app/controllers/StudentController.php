@@ -12,7 +12,6 @@ Class StudentController extends Controller
     public function create(): void
     {
         $studentModel = $this->model('Student');
-
         $errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -25,6 +24,7 @@ Class StudentController extends Controller
             $age = $_POST['age'];
             $life = trim($_POST['life']);
             $college = trim($_POST['college']);
+            $profileImage = $_FILES['profile_image'] ?? null;
 
             if (empty($first_name) or empty($second_name) or empty($age) or empty($life) or empty($college)) {
                 $errors[] = "Všechna pole musí být vyplněna";
@@ -35,8 +35,9 @@ Class StudentController extends Controller
             }
 
             if (empty($errors)) {
-                if ($studentModel->create($first_name, $second_name, $age, $life, $college)) {
-                    Url::redirectUrl("/admin/");
+                if ($studentModel->create($first_name, $second_name, $age, $life, $college, $profileImage)) {
+                    Url::redirectUrl("/student/students/");
+                    return;
                 } else {
                     $errors[] = "Přidání nového studenta selhalo. Zkuste to prosím znovu.";
                 }
@@ -44,10 +45,11 @@ Class StudentController extends Controller
         }
 
         $csrfToken = CsrfHelper::generateToken();
-
-        $this->view("admin/students/create", ['title' => "Administrace - Nový žák školy",
+        $this->view("admin/students/create", [
+            'title' => "Administrace - Nový žák školy",
             'errors' => $errors,
-            'csrfToken' => $csrfToken]);
+            'csrfToken' => $csrfToken
+        ]);
     }
 
     /**
@@ -93,7 +95,7 @@ Class StudentController extends Controller
         $errors = [];
 
         try {
-            $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college");
+            $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college, profile_image");
 
             if (!$student) {
                 $errors[] = "Student s tímto ID neexistuje.";
@@ -122,12 +124,10 @@ Class StudentController extends Controller
         $studentModel = $this->model('Student');
         $errors = [];
 
-        // Validace ID ještě před voláním modelu
         if (!filter_var($id, FILTER_VALIDATE_INT)) {
             $errors[] = "Neplatné ID studenta.";
-            $student = null;
         } else {
-            $student = $studentModel->getStudent($id, "id, first_name, second_name");
+            $student = $studentModel->getStudent($id, "id, first_name, second_name, profile_image");
             if (empty($student)) {
                 $errors[] = "Student s tímto ID neexistuje.";
             }
@@ -138,10 +138,10 @@ Class StudentController extends Controller
                 $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
             }
 
-            // Pokud nejsou žádné chyby, pokračuj v mazání
             if (empty($errors)) {
                 if ($studentModel->deleteStudent($id)) {
                     Url::redirectUrl("/student/students");
+                    return;
                 } else {
                     $errors[] = "Chyba při mazání studenta.";
                 }
@@ -149,7 +149,6 @@ Class StudentController extends Controller
         }
 
         $csrfToken = CsrfHelper::generateToken();
-
         $this->view("admin/students/delete", [
             'title' => "Administrace - Smazání žáka",
             'errors' => $errors,
@@ -168,10 +167,13 @@ Class StudentController extends Controller
     public function edit($id): void
     {
         $studentModel = $this->model('Student');
-
         $errors = [];
 
-        $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college");
+        $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college, profile_image");
+        if (!$student) {
+            Url::redirectUrl("/student/seznam");
+            exit;
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
@@ -183,19 +185,12 @@ Class StudentController extends Controller
             $life = trim($_POST['life']);
             $college = trim($_POST['college']);
             $age_input = $_POST['age'];
+            $profileImage = $_FILES['profile_image'] ?? null;
 
-            // Kontrola prázdných polí
-            if (
-                $first_name === '' ||
-                $second_name === '' ||
-                $life === '' ||
-                $college === '' ||
-                $age_input === ''
-            ) {
+            if ($first_name === '' || $second_name === '' || $life === '' || $college === '' || $age_input === '') {
                 $errors[] = "Prosím, vyplňte všechny údaje";
             }
 
-            // Validace věku
             if (!filter_var($age_input, FILTER_VALIDATE_INT)) {
                 $errors[] = "Věk musí být číslo.";
             } else {
@@ -206,10 +201,10 @@ Class StudentController extends Controller
             }
 
             if (empty($errors)) {
-                $success = $studentModel->updateStudent($first_name, $second_name, $age, $life, $college, $id);
-
+                $success = $studentModel->updateStudent($first_name, $second_name, $age, $life, $college, $id, $profileImage);
                 if ($success) {
                     Url::redirectUrl("/student/student/" . $id);
+                    return;
                 } else {
                     $errors[] = "Aktualizace studenta selhala. Zkuste to prosím znovu.";
                 }
@@ -217,7 +212,6 @@ Class StudentController extends Controller
         }
 
         $csrfToken = CsrfHelper::generateToken();
-
         $this->view("admin/students/edit", [
             'title' => "Administrace - Aktualizace informací o žákovi",
             'errors' => $errors,

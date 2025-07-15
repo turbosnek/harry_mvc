@@ -15,42 +15,44 @@ Class Student extends Database
      * @param int $age - Věk studenta
      * @param string $life - Informace o studentovi
      * @param string $college - Kolej Studenta
+     * @param ?array $profileImage - Profilový obrázek studenta
      *
      * @return bool
      */
-    public function create(string $first_name, string $second_name, int $age, string $life, string $college): bool
+    public function create(string $first_name, string $second_name, int $age, string $life, string $college, ?array $profileImage = null): bool
     {
         try {
-            // Spuštění transakce
             $this->conn->beginTransaction();
 
-            $sql = "INSERT INTO student (first_name, second_name, age, life, college)
-                VALUES (:first_name, :second_name, :age, :life, :college)";
+            $defaultImage = '/assets/images/layout/hogwarts-logo.png';
 
+            $sql = "INSERT INTO student (first_name, second_name, age, life, college, profile_image)
+                    VALUES (:first_name, :second_name, :age, :life, :college, :profile_image)";
             $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':first_name' => $first_name,
+                ':second_name' => $second_name,
+                ':age' => $age,
+                ':life' => $life,
+                ':college' => $college,
+                ':profile_image' => $defaultImage,
+            ]);
 
-            $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
-            $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
-            $stmt->bindValue(":age", $age, PDO::PARAM_INT);
-            $stmt->bindValue(":life", $life, PDO::PARAM_STR);
-            $stmt->bindValue(":college", $college, PDO::PARAM_STR);
+            $studentId = (int) $this->conn->lastInsertId();
 
-            if (!$stmt->execute()) {
-                throw new Exception("Vytvoření studenta selhalo.");
+            if ($profileImage && $profileImage['tmp_name']) {
+                $path = $this->processProfileImage($profileImage, $studentId);
+                if ($path !== false) {
+                    $upd = $this->conn->prepare("UPDATE student SET profile_image = :img WHERE id = :id");
+                    $upd->execute([':img' => $path, ':id' => $studentId]);
+                }
             }
 
-            // Potvrzení transakce
             $this->conn->commit();
             return true;
-
         } catch (Exception $e) {
-            // Zpětné vrácení změn při chybě
             $this->conn->rollBack();
-
-            // Logování chyby (cesta k souboru je relativní k tomuto souboru)
-            $logPath = __DIR__ . "/../../errors/error.log";
-            error_log(date('[d/m/y H:i] ') . "Chyba při vytváření studenta: " . $e->getMessage() . "\n", 3, $logPath);
-
+            error_log(date('[d/m/y H:i] ') . "Chyba při vytváření studenta: " . $e->getMessage() . "\n", 3, __DIR__ . "/../../errors/error.log");
             return false;
         }
     }
@@ -104,7 +106,7 @@ Class Student extends Database
     public function getStudent(int $id, string $columns): ?array
     {
         // Povolené sloupce
-        $allowedColumns = ['id', 'first_name', 'second_name', 'age', 'life', 'college'];
+        $allowedColumns = ['id', 'first_name', 'second_name', 'age', 'life', 'college', "profile_image"];
 
         // Zpracování požadovaných sloupců
         $columnsArray = array_map('trim', explode(',', $columns));
@@ -147,19 +149,19 @@ Class Student extends Database
      * @return bool
      */
     public function deleteStudent(int $id): bool {
+        // smažeme obrázek
+        $this->deleteExistingImage($id);
+
+        // pak originál
         $sql = "DELETE FROM student WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-
         try {
             $stmt->execute();
-            return $stmt->rowCount() > 0; // Vrací true pouze pokud byl student skutečně smazán
+            return $stmt->rowCount() > 0;
         } catch (Exception $e) {
-            // Logování chyby
-            $logPath = __DIR__ . "/../../errors/error.log";
-            error_log(date('[d/m/y H:i] ') . "Chyba při mazání studenta (ID: $id): " . $e->getMessage() . "\n",3, $logPath);
+            error_log(date('[d/m/y H:i] ') . "Chyba při mazání studenta (ID: $id): " . $e->getMessage() . "\n",3, __DIR__ . "/../../errors/error.log");
         }
-
         return false;
     }
 
@@ -172,50 +174,146 @@ Class Student extends Database
      * @param string $life - Informace o studentovi
      * @param string $college - Kolej studenta
      * @param int $id - ID studenta
+     * @param ?array $profileImage - Profilový obrázek studenta
      *
      * @return bool
      */
-    public function updateStudent(string $first_name, string $second_name, int $age, string $life, string $college, int $id): bool
+    public function updateStudent(string $first_name, string $second_name, int $age, string $life, string $college, int $id, ?array $profileImage = null): bool
     {
         try {
-            // Spuštění transakce
             $this->conn->beginTransaction();
 
             $sql = "UPDATE student
-                SET first_name = :first_name,
-                    second_name = :second_name,
-                    age = :age,
-                    life = :life,
-                    college = :college
-                WHERE id = :id";
-
+                    SET first_name = :first_name, second_name = :second_name, age = :age, life = :life, college = :college
+                    WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':first_name' => $first_name,
+                ':second_name' => $second_name,
+                ':age' => $age,
+                ':life' => $life,
+                ':college' => $college,
+                ':id' => $id
+            ]);
 
+            if ($profileImage && $profileImage['tmp_name']) {
+                $this->deleteExistingImage($id);
 
-            $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
-            $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
-            $stmt->bindValue(":age", $age, PDO::PARAM_INT);
-            $stmt->bindValue(":life", $life, PDO::PARAM_STR);
-            $stmt->bindValue(":college", $college, PDO::PARAM_STR);
-            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-
-            if (!$stmt->execute()) {
-                throw new Exception("Updatování studenta selhalo.");
+                $path = $this->processProfileImage($profileImage, $id);
+                if ($path !== false) {
+                    $upd = $this->conn->prepare("UPDATE student SET profile_image = :img WHERE id = :id");
+                    $upd->execute([':img' => $path, ':id' => $id]);
+                }
             }
 
-            // Potvrzení transakce
             $this->conn->commit();
             return true;
-
         } catch (Exception $e) {
-            // Zpětné vrácení změn při chybě
             $this->conn->rollBack();
-
-            // Logování chyby (cesta k souboru je relativní k tomuto souboru)
-            $logPath = __DIR__ . "/../../errors/error.log";
-            error_log(date('[d/m/y H:i] ') . "Chyba při updatování studenta: " . $e->getMessage() . "\n", 3, $logPath);
-
+            error_log(date('[d/m/y H:i] ') . "Chyba při updatování studenta: " . $e->getMessage() . "\n", 3, __DIR__ . "/../../errors/error.log");
             return false;
+        }
+    }
+
+    /**
+     * Zprocesuje přípravu profilového obrázku na uložení
+     *
+     * @param array $image - Profilový obrázek
+     * @param int $studentId - ID Studenta
+     *
+     * @return string|false
+     */
+    private function processProfileImage(array $image, int $studentId): string|false
+    {
+        // Povolené přípony
+        $allowed = ['jpg','jpeg','png','gif'];
+        $ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+
+        // Kontrola chyb a přípony
+        if ($image['error'] !== UPLOAD_ERR_OK || !in_array($ext, $allowed)) {
+            $this->errors[] = "Chyba při nahrávání nebo nepovolený formát obrázku.";
+            return false;
+        }
+
+        // Kontrola velikosti (max 9 MB)
+        if ($image['size'] > 9 * 1024 * 1024) {
+            $this->errors[] = "Maximální velikost obrázku je 9 MB.";
+            return false;
+        }
+
+        // Cesta pro uložení
+        $uploadDir = __DIR__ . "/../../public/assets/images/student/profile/{$studentId}/";
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+        $dest = $uploadDir . "profile.{$ext}";
+
+        // Rozměry a nové plátno
+        [$w,$h] = getimagesize($image['tmp_name']);
+        $newW = 150; $newH = 150;
+        $dst = imagecreatetruecolor($newW, $newH);
+
+        // Vytvoření zdroje obrázku
+        switch ($ext) {
+            case 'jpg':
+            case 'jpeg':
+                $src = imagecreatefromjpeg($image['tmp_name']);
+                break;
+            case 'png':
+                $src = imagecreatefrompng($image['tmp_name']);
+                break;
+            case 'gif':
+                $src = imagecreatefromgif($image['tmp_name']);
+                break;
+            default:
+                $this->errors[] = "Nepodařilo se zpracovat obrázek.";
+                return false;
+        }
+
+        // Zmenšení a uložení
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newW, $newH, $w, $h);
+        switch ($ext) {
+            case 'jpg':
+            case 'jpeg':
+                imagejpeg($dst, $dest, 90);
+                break;
+            case 'png':
+                imagepng($dst, $dest);
+                break;
+            case 'gif':
+                imagegif($dst, $dest);
+                break;
+        }
+
+        // Úklid
+        imagedestroy($src);
+        imagedestroy($dst);
+
+        // Cesta pro uložení do DB
+        return "/assets/images/student/profile/{$studentId}/profile.{$ext}";
+    }
+
+    /**
+     * Smaže profilový obrázek
+     *
+     * @param int $studentId - ID Studenta
+     *
+     * @return void
+     */
+    private function deleteExistingImage(int $studentId): void
+    {
+        $sql = "SELECT profile_image FROM student WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $studentId]);
+        $img = $stmt->fetchColumn();
+
+        if ($img && !str_contains($img, 'hogwarts-logo.png')) {
+            $file = __DIR__.'/../../public' . $img;
+            if (file_exists($file)) unlink($file);
+            $folder = dirname($file);
+            if (is_dir($folder)) {
+                array_map('unlink', glob("$folder/*"));
+                rmdir($folder);
+            }
         }
     }
 }

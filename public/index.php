@@ -1,5 +1,8 @@
 <?php
 
+// Nastaví pracovní adresář na root projektu (ne na složku public)
+chdir(dirname(__DIR__));
+
 require_once 'app/core/App.php';
 require_once 'app/core/Controller.php';
 require_once 'app/core/Database.php';
@@ -10,6 +13,6 @@ $path = $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'] . $_SERVER[
 $path = str_replace("index.php", "", $path);
 
 define('ROOT', $path);
-define('ASSETS', $path . "public/assets/");
+define('ASSETS', $path . "/assets/");
 
 $app = new App();
