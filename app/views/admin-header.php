@@ -17,6 +17,7 @@
                 <ul class="nav-links">
                     <?php if (isset($_SESSION['id'])): ?>
                         <?php if ($_SESSION['role'] === 'ROLE_SUPER_ADMIN' || $_SESSION['role'] === 'ROLE_ADMIN'): ?>
+                            <li><a href="/admin/">Hlavní stránka administrace</a></li>
                             <li class="has-submenu">
                                 <a href="#" class="submenu-toggle">Žáci</a>
                                 <ul class="submenu">
