@@ -37,7 +37,8 @@
                         <input type="number" name="age" placeholder="Věk" value="<?= htmlspecialchars(isset($_POST['age']) ? $_POST['age']:  '') ?>">
                         <input type="text" name="college" placeholder="Kolej" value="<?= htmlspecialchars(isset($_POST['college']) ? $_POST['college']:  '') ?>">
                         <textarea name="life" placeholder="Informace o žákovi"><?= htmlspecialchars(isset($_POST['life']) ? $_POST['life']:  '') ?></textarea>
-                        <label for="profile_image">Profilová fotka (volitelná, .jpg/.jpeg/.png/.gif):</label>
+                        <label class="label-text">Profilová fotka (volitelná, .jpg/.jpeg/.png/.gif):</label>
+                        <label for="profile_image" id="choose-file-text">Vybrat Fotku</label>
                         <input type="file" name="profile_image" id="profile_image" accept=".jpg,.jpeg,.png,.gif">
                         <?php if (!empty($data['errors'])): ?>
                             <ul>

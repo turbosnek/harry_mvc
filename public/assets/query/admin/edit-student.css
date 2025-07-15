@@ -13,3 +13,9 @@
         height: 200px;
     }
 }
+
+@media (max-width: 310px) {
+    .label-text {
+        font-size: 14px;
+    }
+}
