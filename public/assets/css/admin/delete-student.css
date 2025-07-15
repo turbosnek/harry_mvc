@@ -12,6 +12,10 @@ main {
     animation: shadow 1s alternate infinite;
 }
 
+.delete-form h1 {
+    color: #fff;
+}
+
 .delete-form form {
     width: 290px;
     height: 150px;
