@@ -171,10 +171,6 @@ Class StudentController extends Controller
         $errors = [];
 
         $student = $studentModel->getStudent($id, "id, first_name, second_name, age, life, college, profile_image");
-        if (!$student) {
-            Url::redirectUrl("/student/seznam");
-            exit;
-        }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
