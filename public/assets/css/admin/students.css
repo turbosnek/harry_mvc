@@ -9,21 +9,6 @@ main {
     background-attachment: fixed;
 }
 
-/* Security Section */
-.security-error {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.security-error h1 {
-    font-size: 50px;
-    color: #fff;
-    letter-spacing: 2px;
-}
-
 /* Main Heading section */
 .main-heading h1 {
     text-align: center;

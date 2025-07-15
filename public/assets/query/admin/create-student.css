@@ -1,14 +1,4 @@
-@media (max-width: 1335px) {
-    .add-form h1 {
-        text-align: center;
-    }
-}
 
-@media (max-width: 800px) {
-    .add-form h1 {
-        font-size: 40px;
-    }
-}
 
 @media (max-width: 650px) {
     form {
@@ -23,11 +13,5 @@
     form textarea {
         width: 270px;
         height: 200px;
-    }
-}
-
-@media (max-width: 400px) {
-    .add-form h1 {
-        font-size: 30px;
     }
 }

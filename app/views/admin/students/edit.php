@@ -9,6 +9,7 @@
     <meta name="author" content=""/> <!-- Autor webu -->
     <link rel="shortcut icon" href="images/ikona.ico"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/general.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>query/general-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/header.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>query/header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
@@ -23,7 +24,7 @@
     <?php $this->view("admin-header") ?>
 
     <main>
-        <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
+        <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"]) and !isset($data['student']['id'])): ?>
             <section class="security-error">
                 <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
             </section>
