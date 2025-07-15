@@ -7,6 +7,13 @@ main {
     align-items: center;
 }
 
+.student-null h1 {
+    color: #fff;
+    text-align: center;
+    font-size: 50px;
+    letter-spacing: 2px;
+}
+
 form {
     width: 600px;
     display: flex;

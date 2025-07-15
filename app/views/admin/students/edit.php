@@ -28,6 +28,10 @@
             <section class="security-error">
                 <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
             </section>
+        <?php elseif($data['student'] === null): ?>
+            <section class="student-null">
+                <h1>Tento student neexistuje</h1>
+            </section>
         <?php else: ?>
             <section class="add-form">
                     <form action="" method="POST">
