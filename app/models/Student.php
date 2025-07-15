@@ -149,10 +149,17 @@ Class Student extends Database
      * @return bool
      */
     public function deleteStudent(int $id): bool {
-        // smažeme obrázek
-        $this->deleteExistingImage($id);
+        // Smažeme profilový obrázek a složku
+        $this->deleteExistingImage($id); // Mazání konkrétního obrázku
 
-        // pak originál
+        // Pro jistotu zkusíme smazat i složku, pokud existuje
+        $folder = __DIR__ . "/../../public/assets/images/student/profile/{$id}/";
+        if (is_dir($folder)) {
+            array_map('unlink', glob("$folder/*")); // smaže všechny soubory ve složce
+            @rmdir($folder); // pokus o odstranění složky (ignoruje chybu pokud selže)
+        }
+
+        // Smazání záznamu z databáze
         $sql = "DELETE FROM student WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":id", $id, PDO::PARAM_INT);
@@ -160,7 +167,7 @@ Class Student extends Database
             $stmt->execute();
             return $stmt->rowCount() > 0;
         } catch (Exception $e) {
-            error_log(date('[d/m/y H:i] ') . "Chyba při mazání studenta (ID: $id): " . $e->getMessage() . "\n",3, __DIR__ . "/../../errors/error.log");
+            error_log(date('[d/m/y H:i] ') . "Chyba při mazání studenta (ID: $id): " . $e->getMessage() . "\n", 3, __DIR__ . "/../../errors/error.log");
         }
         return false;
     }
