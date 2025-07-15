@@ -45,10 +45,17 @@ form textarea {
 input[type="submit"] {
     background-color: #ad8924;
     border: none;
+    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s linear;
 }
 
 input[type="submit"]:hover {
     background-color: #c29a2b;
+}
+
+.add-form ul {
+    list-style-type: none;
+    color: red;
+    font-size: 20px;
 }
