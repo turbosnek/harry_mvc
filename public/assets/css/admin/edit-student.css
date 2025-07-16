@@ -17,13 +17,6 @@ main {
     border-radius: 50%;
 }
 
-.image-choose {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .student-null h1 {
     color: #fff;
     text-align: center;
