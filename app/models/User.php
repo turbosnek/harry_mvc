@@ -210,4 +210,46 @@ Class User extends Database
         }
         return false;
     }
+
+    /**
+     * Updatuje informace o uživateli
+     *
+     * @param int $id - ID uživatele
+     * @param string $first_name - Křestní jméno uživatele
+     * @param string $second_name - Příjmení uživatele
+     * @param string $email - Email uživatele
+     * @param string $role - Uživatelská role uživatele
+     *
+     * @return bool
+     */
+    public function updateUser(int $id, string $first_name, string $second_name, string $email, string $role): bool
+    {
+        try {
+
+            $sql = "UPDATE user
+                    SET first_name = :first_name, second_name = :second_name, email = :email, role = :role
+                    WHERE id = :id";
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+            $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
+            $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+            $stmt->bindValue(":role", $role, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() === 0) {
+                $this->conn->rollBack();
+                return false;
+            }
+
+            return true;
+
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            error_log(date('[d/m/y H:i] ') . "Chyba při updatování uživatele: " . $e->getMessage() . "\n", 3, __DIR__ . "/../../errors/error.log");
+            return false;
+        }
+    }
 }
