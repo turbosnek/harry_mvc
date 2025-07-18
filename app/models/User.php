@@ -122,7 +122,7 @@ Class User extends Database
      *
      * @return array|false - Pole uživatelů nebo false při chybě
      */
-    public function getAllUsers(array $columns = ['id, first_name, second_name, email'])
+    public function getAllUsers(array $columns = ['id, first_name, second_name, email']): array|false
     {
         // Povolené sloupce – whitelist
         $allowedColumns = ['id', 'first_name', 'second_name, email'];
@@ -148,6 +148,42 @@ Class User extends Database
             // Logování chyby
             $logPath = __DIR__ . "/../../errors/error.log";
             error_log(date('[d/m/y H:i] ') . "Chyba při získávání uživatelů: " . $e->getMessage() . "\n", 3, $logPath);
+
+            return false;
+        }
+    }
+
+    /**
+     * Získá jednoho uživatele z databáze
+     *
+     * @param int $id - ID uživatele
+     * @param array $columns - Pole názvů sloupců, které chceme získat
+     *
+     * @return array|null|false - Data uživatele, null pokud neexistuje, false při chybě
+     */
+    public function getUser(int $id, array $columns = ['id', 'first_name', 'second_name', 'email', 'password', 'role']): array|null|false
+    {
+        $allowedColumns = ['id', 'first_name', 'second_name', 'email', 'password', 'role'];
+
+        $filteredColumns = array_intersect($columns, $allowedColumns);
+
+        if (empty($filteredColumns)) {
+            return false;
+        }
+
+        $columnList = implode(", ", $filteredColumns);
+        $sql = "SELECT $columnList FROM user WHERE id = :id";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ?: null;
+        } catch (Exception $e) {
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při získávání uživatele s ID $id: " . $e->getMessage() . "\n", 3, $logPath);
 
             return false;
         }
