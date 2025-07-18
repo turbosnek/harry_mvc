@@ -38,10 +38,10 @@
                     </div>
                 <?php else: ?>
                     <div class="all-users">
-                        <?php foreach ($data['students'] as $one_student): ?>
+                        <?php foreach ($data['users'] as $one_user): ?>
                             <div class="one-user">
-                                <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
-                                <a href="/student/student/<?= $one_student['id'] ?>">Více informací</a>
+                                <h2><?= htmlspecialchars($one_user['first_name']) . " " . htmlspecialchars($one_user['second_name']) ?></h2>
+<!--                                <a href="/student/student/--><?php //= $one_user['id'] ?><!--">Více informací</a>-->
                             </div>
                         <?php endforeach; ?>
                     </div>
