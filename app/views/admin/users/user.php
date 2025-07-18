@@ -39,7 +39,28 @@
                              alt="Profilový obrázek uživatele">
                     </div>
                     <div class="one-user-box">
-                        <h1>Jméno: </h1><h2><?= htmlspecialchars($data['user']['first_name']) ?></h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Jméno</th>
+                                    <th>Příjmení</th>
+                                    <th>Email</th>
+                                    <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
+                                        <th>Uživatelská role</th>
+                                    <?php endif; ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?= htmlspecialchars($data['user']['first_name']) ?></td>
+                                    <td><?= htmlspecialchars($data['user']['second_name']) ?></td>
+                                    <td><?= htmlspecialchars($data['user']['email']) ?></td>
+                                    <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
+                                        <td><?= htmlspecialchars($data['user']['role']) ?></td>
+                                    <?php endif; ?>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 <!--                    <div class="one-user-buttons">-->
 <!--                        <a class="edit-one-user" href="/user/edit/--><?php //= $data['user']['id'] ?><!--">Editovat</a>-->
