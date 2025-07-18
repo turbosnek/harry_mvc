@@ -14,7 +14,7 @@ Class UserController extends Controller
         $errors = [];
 
         // Volání modelu s požadovanými sloupci
-        $users = $userModel->getAllStudents(['id', 'first_name', 'second_name, email']);
+        $users = $userModel->getAllUsers(['id', 'first_name', 'second_name, email']);
 
         if ($users === false) {
             $errors[] = "Nastala chyba při načítání uživatelů z databáze.";
