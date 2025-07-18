@@ -10,20 +10,20 @@ require_once 'app/core/Url.php';
 
 session_start();
 
-// Dynamická detekce protokolu (http nebo https)
+// Detekce protokolu
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
 
-// Doména (např. localhost nebo mojedomena.cz)
+// Doména
 $host = $_SERVER['HTTP_HOST'];
 
-// Cesta k aplikaci (např. /harry_mvc nebo prázdná při rootu domény)
+// Cesta ke kořeni projektu
 $scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 $basePath = preg_replace('@/public$@', '', $scriptName);
 
-// ROOT: https://localhost/harry_mvc
+// Definice ROOT bez trailing slash (např. http://localhost/harry_mvc)
 define('ROOT', rtrim($protocol . $host . $basePath, '/'));
 
-// ASSETS: https://localhost/harry_mvc/assets
+// Definice ASSETS s /assets (např. http://localhost/harry_mvc/assets)
 define('ASSETS', ROOT . '/assets/');
 
 $app = new App();
