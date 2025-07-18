@@ -144,7 +144,7 @@ Class UserController extends Controller
 
 
             if (empty($errors)) {
-                $success = $userModel->updateUser($first_name, $second_name, $email, $role);
+                $success = $userModel->updateUser($id, $first_name, $second_name, $email, $role);
                 if ($success) {
                     Url::redirectUrl("/user/user/" . $id);
                     return;

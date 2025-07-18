@@ -236,6 +236,7 @@ Class User extends Database
             $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
             $stmt->bindValue(":email", $email, PDO::PARAM_STR);
             $stmt->bindValue(":role", $role, PDO::PARAM_STR);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
 
             $stmt->execute();
 
