@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
 
     <link rel="stylesheet" href="<?= ASSETS ?>css/admin/user.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>query/admin/user.css" type="text/css"/>
 
     <title><?= $data['title'] ?></title>
 </head>
@@ -40,26 +41,24 @@
                     </div>
                     <div class="one-user-box">
                         <table>
-                            <thead>
+                            <tr>
+                                <td class="td-head">Jméno:</td>
+                                <td class="td-contents"><?= htmlspecialchars($data['user']['first_name']) ?></td>
+                            </tr>
+                            <tr>
+                                <td class="td-head">Příjmení:</td>
+                                <td class="td-contents"><?= htmlspecialchars($data['user']['second_name']) ?></td>
+                            </tr>
+                            <tr>
+                                <td class="td-head">Email:</td>
+                                <td class="td-contents"><?= htmlspecialchars($data['user']['email']) ?></td>
+                            </tr>
+                            <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
                                 <tr>
-                                    <th>Jméno</th>
-                                    <th>Příjmení</th>
-                                    <th>Email</th>
-                                    <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
-                                        <th>Uživatelská role</th>
-                                    <?php endif; ?>
+                                    <td class="td-head">Uživatelská role:</td>
+                                    <td class="td-contents"><?= htmlspecialchars($data['user']['role']) ?></td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><?= htmlspecialchars($data['user']['first_name']) ?></td>
-                                    <td><?= htmlspecialchars($data['user']['second_name']) ?></td>
-                                    <td><?= htmlspecialchars($data['user']['email']) ?></td>
-                                    <?php if ($_SESSION['role'] === "ROLE_SUPER_ADMIN"): ?>
-                                        <td><?= htmlspecialchars($data['user']['role']) ?></td>
-                                    <?php endif; ?>
-                                </tr>
-                            </tbody>
+                            <?php endif; ?>
                         </table>
                     </div>
 <!--                    <div class="one-user-buttons">-->
