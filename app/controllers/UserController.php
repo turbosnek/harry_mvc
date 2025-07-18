@@ -30,4 +30,36 @@ Class UserController extends Controller
             "users" => $users
         ]);
     }
+
+    /**
+     * Získá jednoho uživatele
+     *
+     * @param int $id - ID uživatele
+     *
+     * @return void
+     */
+    public function user(int $id): void
+    {
+        $userModel = $this->model('User');
+        $errors = [];
+
+        try {
+            $user = $userModel->getUser($id, ['id', 'first_name', 'second_name', 'email', 'password', 'role']);
+
+            if (!$user) {
+                $nbsp = "\u{00A0}"; // Unicode znak nezlomitelné mezery
+                $errors[] = "Uživatel s{$nbsp}tímto{$nbsp}ID neexistuje.";
+            }
+
+        } catch (InvalidArgumentException $e) {
+            $errors[] = "Chybný požadavek: " . $e->getMessage();
+            $user = null;
+        }
+
+        $this->view("admin/users/user", [
+            "title" => "Administrace - Informace o uživateli",
+            "errors" => $errors,
+            "user" => $user
+        ]);
+    }
 }
