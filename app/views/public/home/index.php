@@ -9,8 +9,8 @@
     <meta name="author" content=""/> <!-- Autor webu -->
     <link rel="shortcut icon" href="images/ikona.ico"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/general.css" type="text/css"/>
-    <link rel="stylesheet" href="<?= ASSETS ?>css/header.css" type="text/css"/>
-    <link rel="stylesheet" href="<?= ASSETS ?>query/header-query.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>css/public/public-header.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
 
     <link rel="stylesheet" href="<?= ASSETS ?>css/public/home/index.css" type="text/css"/>
