@@ -28,7 +28,7 @@
                             <li class="has-submenu">
                                 <a href="#" class="submenu-toggle">Uživatelé</a>
                                 <ul class="submenu">
-                                    <li><a href="#">Seznam uživatélů</a></li>
+                                    <li><a href="/user/users">Seznam uživatélů</a></li>
                                     <li><a href="/#">Nový uživatel</a></li>
                                 </ul>
                             </li>
