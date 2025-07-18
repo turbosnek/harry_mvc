@@ -1,5 +1,7 @@
 <?php
 
+require_once './app/helpers/CsrfHelper.php';
+
 Class UserController extends Controller
 {
     /**
