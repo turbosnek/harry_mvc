@@ -29,7 +29,7 @@
                 <h1>Nemáte dostatečná oprávnění k&nbsp;přístupu na tuto stránku.</h1>
             </section>
         <?php elseif($data['user'] === null): ?>
-            <section class="suer-null">
+            <section class="user-null">
                 <h1>Tento uživatel neexistuje</h1>
             </section>
         <?php else: ?>
