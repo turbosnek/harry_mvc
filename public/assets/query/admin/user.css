@@ -2,4 +2,9 @@
     .one-user-box {
         width: 300px;
     }
+
+    .td-contents {
+        font-size: 12px;
+        font-weight: 700;
+    }
 }

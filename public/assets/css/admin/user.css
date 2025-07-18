@@ -44,6 +44,7 @@ main {
 .td-contents, .td-head {
     border-bottom: 1px solid gray;
     padding: 5px 10px;
+    text-align: center;
 }
 
 .one-user-buttons a {
