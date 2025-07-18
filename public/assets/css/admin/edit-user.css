@@ -24,7 +24,7 @@ form {
     gap: 15px;
 }
 
-form input, form textarea {
+form input, form textarea, form select {
     background: none;
     border: none;
     border-bottom: 1px solid #ffffff;
@@ -32,6 +32,11 @@ form input, form textarea {
     color: #ffffff;
     padding: 15px;
     outline: none;
+}
+
+option {
+    background-color: #000;
+    color: #fff;
 }
 
 form input {
@@ -44,28 +49,6 @@ form textarea {
 
 .label-text {
     color: red;
-}
-
-#choose-file-text {
-    color: #ffffff;
-    text-align: center;
-    width: 200px;
-    height: 30px;
-    border: none;
-    border-radius: 15px;
-    background-color: #5e3333;
-    font-size: 20px;
-    line-height: 30px;
-    cursor: pointer;
-    transition: all .3s linear;
-}
-
-#choose-file-text:hover {
-    color: #ffda00;
-}
-
-#profile_image {
-    display: none;
 }
 
 input[type="submit"] {
