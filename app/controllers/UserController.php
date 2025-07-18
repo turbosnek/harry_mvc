@@ -122,7 +122,7 @@ Class UserController extends Controller
         $userModel = $this->model('User');
         $errors = [];
 
-        $user = $userModel->getUser($id, "id, first_name, second_name, email, role");
+        $user = $userModel->getUser($id, ['id', 'first_name', 'second_name', 'email', 'role']);
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
@@ -155,7 +155,7 @@ Class UserController extends Controller
         }
 
         $csrfToken = CsrfHelper::generateToken();
-        $this->view("admin/students/edit", ['title' => "Administrace - Aktualizace informací o žákovi",
+        $this->view("admin/users/edit", ['title' => "Administrace - Aktualizace informací o uživateli",
             'errors' => $errors,
             'user' => $user,
             'csrfToken' => $csrfToken
