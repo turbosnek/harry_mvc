@@ -103,8 +103,7 @@ Class UserController extends Controller
         }
 
         $csrfToken = CsrfHelper::generateToken();
-        $this->view("admin/students/delete", [
-            'title' => "Administrace - Smazání uživatele",
+        $this->view("admin/users/delete", ['title' => "Administrace - Smazání uživatele",
             'errors' => $errors,
             'user' => $user,
             'csrfToken' => $csrfToken
