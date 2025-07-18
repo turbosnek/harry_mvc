@@ -62,4 +62,50 @@ Class UserController extends Controller
             "user" => $user
         ]);
     }
+
+    /**
+     * Maže uživatele ze systému a přesměrovává po úspěchu
+     *
+     * @param int $id - ID uživatele
+     *
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $userModel = $this->model('User');
+        $errors = [];
+        $user = null;
+
+        if (!filter_var($id, FILTER_VALIDATE_INT)) {
+            $errors[] = "Neplatné ID uživatele.";
+        } else {
+            $user = $userModel->getUser($id);
+            if (empty($user)) {
+                $errors[] = "Uživatel s tímto ID neexistuje.";
+            }
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
+                $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
+            }
+
+            if (empty($errors)) {
+                if ($userModel->deleteUser($id)) {
+                    Url::redirectUrl("/user/users");
+                    return;
+                } else {
+                    $errors[] = "Chyba při mazání uživatele.";
+                }
+            }
+        }
+
+        $csrfToken = CsrfHelper::generateToken();
+        $this->view("admin/students/delete", [
+            'title' => "Administrace - Smazání uživatele",
+            'errors' => $errors,
+            'user' => $user,
+            'csrfToken' => $csrfToken
+        ]);
+    }
 }
