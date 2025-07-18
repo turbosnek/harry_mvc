@@ -61,10 +61,10 @@
                             <?php endif; ?>
                         </table>
                     </div>
-<!--                    <div class="one-user-buttons">-->
-<!--                        <a class="edit-one-user" href="/user/edit/--><?php //= $data['user']['id'] ?><!--">Editovat</a>-->
-<!--                        <a class="delete-one-user" href="/user/delete/--><?php //= $data['user']['id'] ?><!--">Smazat</a>-->
-<!--                    </div>-->
+                    <div class="one-user-buttons">
+                        <a class="edit-one-user" href="/user/edit/<?= $data['user']['id'] ?>">Editovat</a>
+                        <a class="delete-one-user" href="/user/delete/<?= $data['user']['id'] ?>">Smazat</a>
+                    </div>
                 <?php endif; ?>
             </section>
         <?php endif; ?>
