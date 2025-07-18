@@ -1,0 +1,77 @@
+main {
+    min-height: 100vh;
+    background: linear-gradient(black, rgb(5, 5, 76));
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Delete form Section */
+.delete-form {
+    animation: shadow 1s alternate infinite;
+}
+
+.delete-form h1 {
+    color: #fff;
+}
+
+.delete-form form {
+    width: 290px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.delete-form p {
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.btns {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.btns button {
+    cursor: pointer;
+    color: #ffffff;
+    background-color: red;
+    padding: 5px 10px;
+    border: none;
+}
+
+.btns a {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #a17e20;
+    padding: 5px 10px;
+}
+
+/* Info Box Section */
+.info-box {
+
+}
+
+.info-box h1 {
+    color: #ffffff;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* Keyframes */
+@keyframes shadow {
+    0% {
+        box-shadow: 0px 0px 1px red;
+    }
+
+    100% {
+        box-shadow: 0px 0px 20px red;
+    }
+}
