@@ -39,6 +39,7 @@ main {
 
 .td-head {
     font-weight: 700;
+    border-right: 1px solid gray;
 }
 
 .td-contents, .td-head {
