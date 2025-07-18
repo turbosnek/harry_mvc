@@ -6,35 +6,50 @@ class App {
     protected $params = [];
     protected $controllerFolder = 'Public';
 
+    // Tabulka rout
+    protected $routes = [
+        // Veřejná část
+        'login' => ['controller' => 'AuthController', 'method' => 'login', 'folder' => 'Public'],
+        // Admin část
+//        'admin/users/create' => ['controller' => 'UsersController', 'method' => 'create', 'folder' => 'Admin'],
+    ];
+
     public function __construct() {
         $url = $this->parseUrl();
+        $urlPath = implode('/', $url);
 
-        if (isset($url[0])) {
-            $potentialController = ucfirst($url[0]) . 'Controller';
+        // Zkontroluj, jestli URL odpovídá nějaké routě
+        if (isset($this->routes[$urlPath])) {
+            $route = $this->routes[$urlPath];
+            $this->controller = $route['controller'];
+            $this->method = $route['method'];
+            $this->controllerFolder = $route['folder'];
+            $url = []; // vyčistíme URL
+        } else {
+            // Pokud není v tabulce, použij klasické pravidlo
+            if (isset($url[0])) {
+                $potentialController = ucfirst($url[0]) . 'Controller';
 
-            // Zkus Public
-            if (file_exists('app/controllers/Public/' . $potentialController . '.php')) {
-                $this->controller = $potentialController;
-                $this->controllerFolder = 'Public';
-                unset($url[0]);
+                if (file_exists('app/controllers/Public/' . $potentialController . '.php')) {
+                    $this->controller = $potentialController;
+                    $this->controllerFolder = 'Public';
+                    unset($url[0]);
+                } elseif (file_exists('app/controllers/Admin/' . $potentialController . '.php')) {
+                    $this->controller = $potentialController;
+                    $this->controllerFolder = 'Admin';
+                    unset($url[0]);
+                }
             }
-            // Zkus Admin
-            elseif (file_exists('app/controllers/Admin/' . $potentialController . '.php')) {
-                $this->controller = $potentialController;
-                $this->controllerFolder = 'Admin';
-                unset($url[0]);
+
+            if (isset($url[1])) {
+                $this->method = $url[1];
+                unset($url[1]);
             }
         }
 
-        // Načtení správného controlleru podle složky
         require_once 'app/controllers/' . $this->controllerFolder . '/' . $this->controller . '.php';
 
         $this->controller = new $this->controller;
-
-        if (isset($url[1]) && method_exists($this->controller, $url[1])) {
-            $this->method = $url[1];
-            unset($url[1]);
-        }
 
         $this->params = $url ? array_values($url) : [];
 
