@@ -188,4 +188,26 @@ Class User extends Database
             return false;
         }
     }
+
+    /**
+     * Smazání uživatele z databáze
+     *
+     * @param int $id - ID uživatele
+     *
+     * @return bool
+     */
+    public function deleteUser(int $id): bool
+    {
+        // Smazání záznamu z databáze
+        $sql = "DELETE FROM user WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        try {
+            $stmt->execute();
+            return $stmt->rowCount() > 0;
+        } catch (Exception $e) {
+            error_log(date('[d/m/y H:i] ') . "Chyba při mazání uživatele (ID: $id): " . $e->getMessage() . "\n", 3, __DIR__ . "/../../errors/error.log");
+        }
+        return false;
+    }
 }
