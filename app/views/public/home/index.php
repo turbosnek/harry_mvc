@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="<?= ASSETS ?>query/header-query.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
 
-    <link rel="stylesheet" href="<?= ASSETS ?>css/public/index.css" type="text/css"/>
-    <link rel="stylesheet" href="<?= ASSETS ?>query/public/index-query.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>css/public/home/index.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>query/public/home/index.css" type="text/css"/>
 
     <title><?= $data['title'] ?></title>
 </head>
