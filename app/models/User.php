@@ -114,4 +114,42 @@ Class User extends Database
         }
         return false;
     }
+
+    /**
+     * Získá všechny uživatele z databáze
+     *
+     * @param array $columns - Pole názvů sloupců, které chceme získat
+     *
+     * @return array|false - Pole uživatelů nebo false při chybě
+     */
+    public function getAllUsers(array $columns = ['id, first_name, second_name, email'])
+    {
+        // Povolené sloupce – whitelist
+        $allowedColumns = ['id', 'first_name', 'second_name, email'];
+
+        // Filtrace vstupního pole podle whitelistu
+        $filteredColumns = array_intersect($columns, $allowedColumns);
+
+        // Pokud je výsledek prázdný, zamezíme SELECT bez sloupců
+        if (empty($filteredColumns)) {
+            return false;
+        }
+
+        // Sestavení dotazu
+        $columnList = implode(", ", $filteredColumns);
+        $sql = "SELECT $columnList FROM user";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            // Logování chyby
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při získávání uživatelů: " . $e->getMessage() . "\n", 3, $logPath);
+
+            return false;
+        }
+    }
 }
