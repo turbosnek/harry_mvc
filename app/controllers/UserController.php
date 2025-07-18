@@ -109,4 +109,56 @@ Class UserController extends Controller
             'csrfToken' => $csrfToken
         ]);
     }
+
+    /**
+     * Upravuje informace o uživateli v databázi
+     *
+     * @param int $id - ID uživatele
+     *
+     * @return void
+     */
+    public function edit(int $id): void
+    {
+        $userModel = $this->model('User');
+        $errors = [];
+
+        $user = $userModel->getUser($id, "id, first_name, second_name, email, role");
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
+                $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
+            }
+
+            $first_name = trim($_POST['first_name']);
+            $second_name = trim($_POST['second_name']);
+            $email = trim($_POST['email']);
+            $role = trim($_POST['role']);
+
+            if ($first_name === '' || $second_name === '' || $email === '' || $role === '') {
+                $errors[] = "Prosím, vyplňte všechny údaje";
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = "Zadejte platný e-mail.";
+            }
+
+
+            if (empty($errors)) {
+                $success = $userModel->updateUser($first_name, $second_name, $email, $role);
+                if ($success) {
+                    Url::redirectUrl("/user/user/" . $id);
+                    return;
+                } else {
+                    $errors[] = "Aktualizace uživatele selhala. Zkuste to prosím znovu.";
+                }
+            }
+        }
+
+        $csrfToken = CsrfHelper::generateToken();
+        $this->view("admin/students/edit", ['title' => "Administrace - Aktualizace informací o žákovi",
+            'errors' => $errors,
+            'user' => $user,
+            'csrfToken' => $csrfToken
+        ]);
+    }
 }
