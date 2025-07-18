@@ -34,7 +34,7 @@
                         <h1><?= htmlspecialchars($error) ?></h1>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <form action="" method="POST" class="d-flex flex-column justify-content-center align-items-center">
+                    <form action="" method="POST">
                         <input type="hidden" name="csrf_token" value="<?= isset($data['csrfToken']) ? $data['csrfToken'] : '' ?>">
                         <p>Jste si jistí, že chcete smazat žáka <?= htmlspecialchars($data['student']['first_name']) . " " . htmlspecialchars($data['student']['second_name']) ?>?</p>
                         <div class="btns">
