@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="<?= ASSETS ?>query/public/public-header.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
 
-    <link rel="stylesheet" href="<?= ASSETS ?>css/public/login.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>css/public/auth/login.css" type="text/css"/>
 
     <title><?= $data['title'] ?></title>
 </head>
