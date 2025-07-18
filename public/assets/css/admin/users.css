@@ -10,6 +10,10 @@ main {
 }
 
 /* Students List Section */
+.users-list {
+    padding-top: 30px;
+}
+
 .all-users {
     display: flex;
     flex-direction: row;
