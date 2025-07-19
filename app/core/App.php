@@ -15,6 +15,7 @@ class App {
         // Admin část
         'admin' => ['controller' => 'HomeController', 'method' => 'index', 'folder' => 'Admin'],
         'admin/students/create' => ['controller' => 'StudentController', 'method' => 'create', 'folder' => 'Admin'],
+        'admin/students/students' => ['controller' => 'StudentController', 'method' => 'students', 'folder' => 'Admin'],
     ];
 
     public function __construct() {
