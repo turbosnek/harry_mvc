@@ -65,7 +65,10 @@ Class Student extends Database
      */
     public function getAllStudents(array $columns =['*']): array|false
     {
-        $sql = "SELECT $columns
+        // Ošetření názvů sloupců (bezpečné, odstraní neznámé znaky). Řešíme v controllweru
+        $columnList = implode(', ', $columns);
+
+        $sql = "SELECT $columnList
                 FROM student";
 
         try {
