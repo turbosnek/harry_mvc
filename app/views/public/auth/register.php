@@ -28,7 +28,7 @@
                 <input type="text" name="first_name" class="reg-input" placeholder="Křestní jméno" value="<?= htmlspecialchars($_POST['first_name'] ?? '') ?>"><br />
                 <input type="text" name="second_name" class="reg-input" placeholder="Příjmení" value="<?= htmlspecialchars($_POST['second_name'] ?? '') ?>"><br />
                 <input type="email" name="email" class="reg-input" placeholder="Email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"><br />
-                <input type="text" name="anti_spam" class="reg-input" placeholder="Aktuální rok (Anti Spam)"><br />
+                <input type="text" name="anti_spam" class="reg-input" placeholder="Aktuální rok (Anti Spam)" value="<?= htmlspecialchars($_POST['anti_spam'] ?? '') ?>"><br />
                 <input type="password" name="password" class="reg-input" placeholder="Heslo"><br />
                 <input type="password" name="password_again" class="reg-input" placeholder="Heslo znovu"><br />
                 <?php if (!empty($data['errors'])): ?>
