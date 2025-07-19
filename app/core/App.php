@@ -13,6 +13,7 @@ class App {
         'login' => ['controller' => 'AuthController', 'method' => 'login', 'folder' => 'Public'],
         'logout' => ['controller' => 'AuthController', 'method' => 'logout', 'folder' => 'Public'],
         // Admin část
+        'admin' => ['controller' => 'HomeController', 'method' => 'index', 'folder' => 'Admin'],
 //        'admin/users/create' => ['controller' => 'UsersController', 'method' => 'create', 'folder' => 'Admin'],
     ];
 
