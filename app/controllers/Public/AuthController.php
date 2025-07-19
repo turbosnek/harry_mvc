@@ -27,27 +27,34 @@ Class AuthController extends Controller
             $password = trim($_POST['password'] ?? '');
             $passwordAgain = trim($_POST['password_again'] ?? '');
 
+            // Zjistíme, jestli jsou všechna pole vyplněna. Pokud ne, uložíme chybu do proměnné
             if (empty($firstName) || empty($secondName) || empty($email) || empty($antiSpam) || empty($password) || empty($passwordAgain)) {
                 $errors[] = "Všechna pole musí být vyplněna.";
             }
 
+            // Zjistíme, jestli je správně vyplněný anti spam. pokud ne, uložíme chybu do proměnné
             if ($antiSpam != date('Y')) {
                 $errors[] = "Špatně vyplněný antispam.";
             }
 
+            // Zjistíme, jestli má email správný tvar a jestli už není náhodou email zaregistrovaný. Pokud to není pravda, uložíme chybu do promšnné
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = "Neplatný formát emailu.";
             } elseif ($userModel->checkEmail($email)) {
                 $errors[] = "Tento email je již zaregistrovaný.";
             }
 
+            // Zjistíme, jestli se hesla shodují. pokud ne, uložíme chybu do proměnné
             if ($password !== $passwordAgain) {
                 $errors[] = "Hesla se neshodují.";
             }
 
+            // Když nejsou žádné chyby, spustíme registraci
             if (empty($errors)) {
+                // Zahashujeme heslo
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
+                // Pokud registrace proběhla, přesměrujeme na danou stránku, pokud ne, uložíme chybu do proměnné
                 if ($userModel->register($firstName, $secondName, $email, $hashedPassword)) {
                     Url::redirectUrl("/auth/login");
                     return; // Zastaví další vykonávání
