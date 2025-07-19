@@ -21,7 +21,7 @@
                             <li><a href="admin/">Administrace</a></li>
                         <?php endif; ?>
                         <li><a href="#">Můj profil</a></li>
-                        <li><a href="/auth/logout">Odhlásit</a></li>
+                        <li><a href="<?= ROOT ?>/logout">Odhlásit</a></li>
                     <?php else: ?>
                         <li><a href="<?= ROOT ?>/register">Registrace</a></li>
                         <li><a href="<?= ROOT ?>/login">Přihlášení</a></li>
