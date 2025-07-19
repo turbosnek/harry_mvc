@@ -97,8 +97,10 @@ Class StudentController extends Controller
         $studentModel = $this->model('Student');
         $errors = [];
 
+        // Volání modelu s požadovanými sloupci
         $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name', 'age', 'life', 'college']);
 
+        // Když student neexistuje, uložíme chybu do proměnné
         if (!$student) {
             $nonBreakingSpace = "\u{00A0}"; // Unicode znak nezlomitelné mezery
             $errors[] = "Student s{$nonBreakingSpace}tímto{$nonBreakingSpace}ID neexistuje.";
@@ -124,6 +126,8 @@ Class StudentController extends Controller
         $errors = [];
         $student = null;
 
+
+        // Zkontrolujeme, jestli je ID studenta platné. Získámé potřebné sloupce z databáze, které budeme potřebovat. pokud nesouhlasí, uložíme chybu do proměnné
         if (!filter_var($id, FILTER_VALIDATE_INT)) {
             $errors[] = "Neplatné ID studenta.";
         } else {
@@ -134,9 +138,11 @@ Class StudentController extends Controller
         }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            // Zkontrolujeme, jestli je správně nastavený CSRF Token, pokud ne, uložíme chybu do proměnné
             if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
                 $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
             } else {
+                // Pokud není žádná chyba, smažeme studenta a přesměrujeme na danou URL. Pokud je chyba, tak tu uložíme do proměnné
                 if (empty($errors)) {
                     if ($studentModel->deleteStudent($id)) {
                         Url::redirectUrl("/admin/students/students");
@@ -170,11 +176,14 @@ Class StudentController extends Controller
         $studentModel = $this->model('Student');
         $errors = [];
 
+        // Získáme všechny sloupečky z DB, které potřebujeme
         $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name', 'age', 'life', 'college']);
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            // Zkontrolujeme, jestli je správně nastavený CSRF Token, pokud ne, uložíme chybu do proměnné
             if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
                 $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
+                // Pokud je CSRF Token nastavený, přejdeme k validaci formuláře
             } else {
                 $first_name = trim($_POST['first_name']);
                 $second_name = trim($_POST['second_name']);
@@ -182,10 +191,12 @@ Class StudentController extends Controller
                 $college = trim($_POST['college']);
                 $age_input = $_POST['age'];
 
+                // Zkontrolujeme, jsetli jsou všechna pole ve formuláři vyplněna. pokud ne, uložíme chybu do proměnné
                 if ($first_name === '' || $second_name === '' || $life === '' || $college === '' || $age_input === '') {
                     $errors[] = "Prosím, vyplňte všechny údaje";
                 }
 
+                // Zkontrolujeme, jestli je věk číslo nebo jestli není menší jak 10. Pokud to tak je, uložíme chybu do promněnné
                 if (!filter_var($age_input, FILTER_VALIDATE_INT)) {
                     $errors[] = "Věk musí být číslo.";
                 } else {
@@ -195,6 +206,7 @@ Class StudentController extends Controller
                     }
                 }
 
+                // Když není žádná chyba, aktualizujeme informace o studentovi. Když to selže, uložíme chybu do promněnné
                 if (empty($errors)) {
                     $success = $studentModel->updateStudent($first_name, $second_name, $age, $life, $college, $id);
                     if ($success) {
