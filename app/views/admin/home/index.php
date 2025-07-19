@@ -9,7 +9,7 @@
     <meta name="author" content=""/> <!-- Autor webu -->
     <link rel="shortcut icon" href="images/ikona.ico"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/general.css" type="text/css"/>
-    <link rel="stylesheet" href="<?= ASSETS ?>query/general.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= ASSETS ?>query/admin/general.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/admin/admin-header.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>query/admin/admin-header.css" type="text/css"/>
     <link rel="stylesheet" href="<?= ASSETS ?>css/footer.css" type="text/css"/>
