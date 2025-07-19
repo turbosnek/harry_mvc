@@ -1,13 +1,13 @@
 <?php
 
 class App {
-    protected $controller = 'HomeController';
-    protected $method = 'index';
-    protected $params = [];
-    protected $controllerFolder = 'Public';
+    protected mixed $controller = 'HomeController';
+    protected mixed $method = 'index';
+    protected array $params = [];
+    protected mixed $controllerFolder = 'Public';
 
     // Tabulka rout
-    protected $routes = [
+    protected array $routes = [
         // Veřejná část
         'login' => ['controller' => 'AuthController', 'method' => 'login', 'folder' => 'Public'],
         // Admin část
