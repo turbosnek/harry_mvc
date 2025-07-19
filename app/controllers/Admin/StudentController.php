@@ -39,7 +39,7 @@ Class StudentController extends Controller
                 // Pokud není žádný error, přidáme studenta do databáze a přesměrujeme na hlavní stránku administrace, jinak uložíme chybu do proměnné
                 if (empty($errors)) {
                     if ($studentModel->createStudent($firstName, $secondName, $age, $life, $college)) {
-                        Url::redirectUrl("/admin");
+                        Url::redirectUrl("/admin/students/students");
                         return;
                     } else {
                         $errors[] = "Přidání nového studenta selhalo. Zkuste to prosím znovu";
