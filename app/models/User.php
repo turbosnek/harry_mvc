@@ -2,6 +2,11 @@
 
 Class User extends Database
 {
+    public function __construct()
+    {
+        $this->conn = $this->connect();
+    }
+
     /**
      * Registruje uživatele do systému
      *
