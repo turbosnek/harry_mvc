@@ -127,7 +127,7 @@ Class StudentController extends Controller
         if (!filter_var($id, FILTER_VALIDATE_INT)) {
             $errors[] = "Neplatné ID studenta.";
         } else {
-            $student = $studentModel->getStudent($id, ['id']);
+            $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name']);
             if (empty($student)) {
                 $errors[] = "Student s tímto ID neexistuje.";
             }
