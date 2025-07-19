@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <?php $this->view("admin-header") ?>
+    <?php $this->view("admin/admin-header") ?>
 
     <main>
         <?php if (!isset($_SESSION['role']) or !in_array($_SESSION['role'], ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"])): ?>
