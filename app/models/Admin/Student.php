@@ -144,4 +144,55 @@ Class Student extends Database
 
         return false;
     }
+
+    /**
+     * Aktualizuje informace o studentovi
+     *
+     * @param string $firstname - Křestní jméno studenta
+     * @param string $secondName - Příjmení studenta
+     * @param int $age - Věk studenta
+     * @param string $life - Informace o studentovi
+     * @param string $college - Kolej studenta
+     * @param int $id - ID studenta
+     *
+     * @return bool - TRUE, pokud byl záznam aktualizován, jinak FALSE
+     */
+    public function updateStudent(string $firstname, string $secondName, int $age, string $life, string $college, int $id): bool
+    {
+        try {
+            $this->conn->beginTransaction();
+
+            $sql = "UPDATE student
+                SET first_name = :first_name,
+                    second_name = :second_name,
+                    age = :age,
+                    life = :life,
+                    college = :college
+                WHERE id = :id";
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->bindValue(":first_name", $firstname, PDO::PARAM_STR);
+            $stmt->bindValue(":second_name", $secondName, PDO::PARAM_STR);
+            $stmt->bindValue(":age", $age, PDO::PARAM_INT);
+            $stmt->bindValue(":life", $life, PDO::PARAM_STR);
+            $stmt->bindValue(":college", $college, PDO::PARAM_STR);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            $this->conn->commit();
+
+            // Vrátí true, pouze pokud byl alespoň jeden řádek změněn
+            return $stmt->rowCount() > 0;
+
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při updatování uživatele: " . $e->getMessage() . "\n", 3, $logPath);
+
+            return false;
+        }
+    }
 }
