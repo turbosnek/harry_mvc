@@ -198,7 +198,7 @@ Class StudentController extends Controller
                 if (empty($errors)) {
                     $success = $studentModel->updateStudent($first_name, $second_name, $age, $life, $college, $id);
                     if ($success) {
-                        Url::redirectUrl("/admin/students/student" . $id);
+                        Url::redirectUrl("/admin/students/student/" . $id);
                         return;
                     } else {
                         $errors[] = "Aktualizace studenta selhala. Zkuste to prosím znovu.";
