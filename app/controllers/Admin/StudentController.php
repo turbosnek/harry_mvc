@@ -84,4 +84,30 @@ Class StudentController extends Controller
             'students' => $students
             ]);
     }
+
+    /**
+     * Získá jednoho studenta
+     *
+     * @param int $id - ID studenta
+     *
+     * @return void
+     */
+    public function student(int $id): void
+    {
+        $studentModel = $this->model('Student');
+        $errors = [];
+
+        $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name', 'age', 'life', 'college']);
+
+        if (!$student) {
+            $nonBreakingSpace = "\u{00A0}"; // Unicode znak nezlomitelné mezery
+            $errors[] = "Student s{$nonBreakingSpace}tímto{$nonBreakingSpace}ID neexistuje.";
+        }
+
+        $this->view("admin/students/student", [
+            "title" => "Administrace - Informace o žákovi",
+            "errors" => $errors,
+            "student" => $student
+        ]);
+    }
 }
