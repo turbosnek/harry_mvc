@@ -18,7 +18,7 @@
                     <li><a href="/">Hlavní stránka</a></li>
                     <?php if(isset($_SESSION['id'])): ?>
                         <?php if ($_SESSION['role'] === 'ROLE_SUPER_ADMIN' or $_SESSION['role'] === 'ROLE_ADMIN'): ?>
-                            <li><a href="admin/">Administrace</a></li>
+                            <li><a href="<?= ROOT ?>/admin">Administrace</a></li>
                         <?php endif; ?>
                         <li><a href="#">Můj profil</a></li>
                         <li><a href="<?= ROOT ?>/logout">Odhlásit</a></li>
