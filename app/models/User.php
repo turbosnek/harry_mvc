@@ -24,7 +24,7 @@ Class User extends Database
             $this->conn->beginTransaction();
 
             $sql = "INSERT INTO user (first_name, second_name, email, password, role)
-                    VALUES (:first_name, :second_ame, :email, :password, :role)";
+                    VALUES (:first_name, :second_name, :email, :password, :role)";
 
             $stmt = $this->conn->prepare($sql);
 
