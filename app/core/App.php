@@ -10,6 +10,7 @@ class App {
     protected array $routes = [
         // Veřejná část
         'login' => ['controller' => 'AuthController', 'method' => 'login', 'folder' => 'Public'],
+        'register' => ['controller' => 'AuthController', 'method' => 'register', 'folder' => 'Public'],
         // Admin část
 //        'admin/users/create' => ['controller' => 'UsersController', 'method' => 'create', 'folder' => 'Admin'],
     ];
