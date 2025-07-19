@@ -20,6 +20,7 @@ class App {
         'admin/students/students' => ['controller' => 'StudentController', 'method' => 'students', 'folder' => 'Admin'],
         'admin/students/student/{id}' => ['controller' => 'StudentController', 'method' => 'student', 'folder' => 'Admin'],
         'admin/students/delete/{id}' => ['controller' => 'StudentController', 'method' => 'delete', 'folder' => 'Admin'],
+        'admin/students/edit/{id}' => ['controller' => 'StudentController', 'method' => 'edit', 'folder' => 'Admin'],
     ];
 
     public function __construct() {
