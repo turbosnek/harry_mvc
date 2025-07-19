@@ -63,7 +63,7 @@ Class Student extends Database
      *
      * @return array|false - Pole studentů nebo false při chybě
      */
-    public function getAllStudents(array $columns =['*']): array|false
+    public function getAllStudents(array $columns = ['*']): array|false
     {
         // Ošetření názvů sloupců (bezpečné, odstraní neznámé znaky). Řešíme v controllweru
         $columnList = implode(', ', $columns);
@@ -82,6 +82,40 @@ Class Student extends Database
             error_log(date('[d/m/y H:i] ') . "Chyba při získánvání všech studentů: " . $e->getMessage() . "\n", 3, $logPath);
 
             return false;
+        }
+    }
+
+    /**
+     * Získá ionformace o jednom studentovi
+     *
+     * @param int $id - ID Studenta
+     * @param array $columns - Sloupce, které chceme získat (např. "id, first_name, second_name)
+     *
+     * @return array|null - Pole s daty studenta nebo null, pokud student neexistuje nebo dojde k chybě
+     */
+    public function getStudent(int $id, array $columns = ['*']): array|null
+    {
+        // Ošetření názvů sloupců (bezpečné, odstraní neznámé znaky). Řešíme v controllweru
+        $columnList = implode(', ', $columns);
+
+        $sql = "SELECT $columnList
+                FROM student WHERE id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+        try {
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result !== false ? $result : null;
+        } catch (Exception $e) {
+            // Logování chyby (cesta k souboru je relativní k tomuto souboru)
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při získánvání studenta: " . $e->getMessage() . "\n", 3, $logPath);
+
+            return null;
         }
     }
 }
