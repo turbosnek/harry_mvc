@@ -110,4 +110,51 @@ Class StudentController extends Controller
             "student" => $student
         ]);
     }
+
+    /**
+     * Zpracovává smazání studenta ze systému
+     *
+     * @param int $id - ID studenta
+     *
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $studentModel = $this->model('Student');
+        $errors = [];
+        $student = null;
+
+        if (!filter_var($id, FILTER_VALIDATE_INT)) {
+            $errors[] = "Neplatné ID studenta.";
+        } else {
+            $student = $studentModel->getStudent($id, ['id']);
+            if (empty($student)) {
+                $errors[] = "Student s tímto ID neexistuje.";
+            }
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if (!isset($_POST['csrf_token']) || !CsrfHelper::validateToken($_POST['csrf_token'])) {
+                $errors[] = "Neplatný CSRF token. Zkuste to prosím znovu.";
+            } else {
+                if (empty($errors)) {
+                    if ($studentModel->deleteStudent($id)) {
+                        Url::redirectUrl("/admin/students/students");
+                        return;
+                    } else {
+                        $errors[] = "Chyba při mazání studenta.";
+                    }
+                }
+            }
+        }
+
+        $csrfToken = CsrfHelper::generateToken();
+
+        $this->view("admin/students/delete", [
+            'title' => "Administrace - Smazání žáka",
+            'errors' => $errors,
+            'student' => $student,
+            'csrfToken' => $csrfToken
+        ]);
+    }
 }
