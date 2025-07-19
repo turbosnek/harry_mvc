@@ -14,7 +14,7 @@ class App {
         'logout' => ['controller' => 'AuthController', 'method' => 'logout', 'folder' => 'Public'],
         // Admin část
         'admin' => ['controller' => 'HomeController', 'method' => 'index', 'folder' => 'Admin'],
-//        'admin/users/create' => ['controller' => 'UsersController', 'method' => 'create', 'folder' => 'Admin'],
+        'admin/students/create' => ['controller' => 'StudentController', 'method' => 'create', 'folder' => 'Admin'],
     ];
 
     public function __construct() {
