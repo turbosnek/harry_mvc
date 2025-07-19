@@ -55,4 +55,30 @@ Class Student extends Database
             return false;
         }
     }
+
+    /**
+     * Získá všechny studenty z databáze
+     *
+     * @param array $columns - Pole názvů sloupců, které chceme získat
+     *
+     * @return array|false - Pole studentů nebo false při chybě
+     */
+    public function getAllStudents(array $columns =['*']): array|false
+    {
+        $sql = "SELECT $columns
+                FROM student";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            // Logování chyby (cesta k souboru je relativní k tomuto souboru)
+            $logPath = __DIR__ . "/../../errors/error.log";
+            error_log(date('[d/m/y H:i] ') . "Chyba při získánvání všech studentů: " . $e->getMessage() . "\n", 3, $logPath);
+
+            return false;
+        }
+    }
 }
