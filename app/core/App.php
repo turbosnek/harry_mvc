@@ -16,6 +16,7 @@ class App {
         'admin' => ['controller' => 'HomeController', 'method' => 'index', 'folder' => 'Admin'],
         'admin/students/create' => ['controller' => 'StudentController', 'method' => 'create', 'folder' => 'Admin'],
         'admin/students/students' => ['controller' => 'StudentController', 'method' => 'students', 'folder' => 'Admin'],
+        'admin/students/student' => ['controller' => 'StudentController', 'method' => 'student', 'folder' => 'Admin'],
     ];
 
     public function __construct() {
