@@ -56,4 +56,32 @@ Class StudentController extends Controller
             'csrfToken' => $csrfToken
         ]);
     }
+
+    /**
+     * Získá všechny studenty z databáze
+     *
+     * @return void
+     */
+    public function students(): void
+    {
+        $studentModel = $this->model('Student');
+
+        $errors = [];
+
+        // Volání modelu s požadovanými sloupci
+        $students = $studentModel->getAllStudents(['id', 'first_name', 'second_name']);
+
+        if ($students === false) {
+            $errors[] = "Nastala chyba při načítání studentů z databáze";
+            $students = []; // Aby měla view co zpracovávat
+        } elseif (empty($students)) {
+            $errors[] = "Žádní žáci nebyli nalezeni";
+        }
+
+        $this->view('admin/students/students', [
+            'title' => "Administrace - Seznam studentů",
+            'errors' => $errors,
+            'students' => $students
+            ]);
+    }
 }
