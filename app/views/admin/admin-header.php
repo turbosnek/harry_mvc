@@ -21,7 +21,7 @@
                             <li class="has-submenu">
                                 <a href="#" class="submenu-toggle">Žáci</a>
                                 <ul class="submenu">
-                                    <li><a href="<?= ROOT ?>admin/students/students">Seznam žáků</a></li>
+                                    <li><a href="<?= ROOT ?>/admin/students/students">Seznam žáků</a></li>
                                     <li><a href="<?= ROOT ?>/admin/students/create">Přidat žáka</a></li>
                                 </ul>
                             </li>
