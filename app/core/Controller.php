@@ -1,9 +1,32 @@
 <?php
-
+//
+//
+//class Controller {
+//    public function model($model) {
+//        require_once 'app/models/' . $model . '.php';
+//        return new $model();
+//    }
+//
+//    public function view($view, $data = []) {
+//        require_once 'app/views/' . $view . '.php';
+//    }
+//}
 
 class Controller {
     public function model($model) {
-        require_once 'app/models/' . $model . '.php';
+        // Cesty ke složkám
+        $publicModelPath = 'app/models/public/' . $model . '.php';
+        $adminModelPath = 'app/models/admin/' . $model . '.php';
+
+        if (file_exists($publicModelPath)) {
+            require_once $publicModelPath;
+        } elseif (file_exists($adminModelPath)) {
+            require_once $adminModelPath;
+        } else {
+            // Pokud model neexistuje ani v jedné složce
+            die("Model '$model' nebyl nalezen.");
+        }
+
         return new $model();
     }
 
