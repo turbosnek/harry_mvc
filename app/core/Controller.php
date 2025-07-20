@@ -15,8 +15,8 @@
 class Controller {
     public function model($model) {
         // Cesty ke složkám
-        $publicModelPath = 'app/models/public/' . $model . '.php';
-        $adminModelPath = 'app/models/admin/' . $model . '.php';
+        $publicModelPath = 'app/models/Public/' . $model . '.php';
+        $adminModelPath = 'app/models/Admin/' . $model . '.php';
 
         if (file_exists($publicModelPath)) {
             require_once $publicModelPath;
