@@ -25,13 +25,13 @@
                                     <li><a href="<?= ROOT ?>/admin/students/create">Přidat žáka</a></li>
                                 </ul>
                             </li>
-                            <li class="has-submenu">
-                                <a href="#" class="submenu-toggle">Uživatelé</a>
-                                <ul class="submenu">
-                                    <li><a href="/user/users">Seznam uživatélů</a></li>
-                                    <li><a href="/#">Nový uživatel</a></li>
-                                </ul>
-                            </li>
+<!--                            <li class="has-submenu">-->
+<!--                                <a href="#" class="submenu-toggle">Uživatelé</a>-->
+<!--                                <ul class="submenu">-->
+<!--                                    <li><a href="/user/users">Seznam uživatélů</a></li>-->
+<!--                                    <li><a href="/#">Nový uživatel</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
                         <?php endif; ?>
                         <li><a href="#">Můj profil</a></li>
                         <li><a href="/auth/logout">Odhlásit</a></li>
