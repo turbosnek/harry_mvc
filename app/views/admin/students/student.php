@@ -34,6 +34,11 @@
                         <h1><?= htmlspecialchars($error) ?></h1>
                     <?php endforeach; ?>
                 <?php else: ?>
+                    <div class="profile-image">
+                        <img src="<?= !empty($data['student']['profile_image']) ? htmlspecialchars($data['student']['profile_image']) : '/assets/images/layout/hogwarts-logo.png' ?>"
+                             alt="Profilový obrázek studenta">
+                    </div>
+
                     <div class="one-student-box">
                         <h2><?= htmlspecialchars($data['student']['first_name'] . " " . htmlspecialchars($data['student']['second_name'])) ?></h2>
                         <p>Věk: <?= htmlspecialchars($data['student']['age']) ?></p>

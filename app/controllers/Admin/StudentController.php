@@ -98,7 +98,7 @@ Class StudentController extends Controller
         $errors = [];
 
         // Volání modelu s požadovanými sloupci
-        $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name', 'age', 'life', 'college']);
+        $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name', 'age', 'life', 'college', 'profile_image']);
 
         // Když student neexistuje, uložíme chybu do proměnné
         if (!$student) {
