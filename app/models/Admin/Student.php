@@ -241,7 +241,7 @@ Class Student extends Database
         }
 
         // Cesta pro uložení
-        $uploadDir = __DIR__ . "/../../public/assets/images/students/profile/{$studentId}/";
+        $uploadDir = __DIR__ . "/../../../public/assets/images/students/profile/{$studentId}/";
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
         $dest = $uploadDir . "profile.{$ext}";
