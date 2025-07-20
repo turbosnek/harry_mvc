@@ -15,17 +15,23 @@ Class Student extends Database
      * @param int $age - Věk studenta
      * @param string $life - Informace o studentovi
      * @param string $college - Kolej studenta
+     * @param ?array $profileImage - Profilový obrázek studenta
+
      *
      * @return bool
      */
-    public function createStudent(string $firstName, string $secondName, int $age, string $life, string $college): bool
+    public function createStudent(string $firstName, string $secondName, int $age, string $life, string $college, ?array $profileImage = null): bool
     {
         try {
             // Spuštění transakce
             $this->conn->beginTransaction();
 
-            $sql = "INSERT INTO student (first_name, second_name, age, life, college)
-                    VALUES (:first_name, :second_name, :age, :life, :college)";
+            $defaultImage = '/assets/images/layout/hogwarts-logo.png';
+
+            $studentId = null;
+
+            $sql = "INSERT INTO student (first_name, second_name, age, life, college, profile_image)
+                    VALUES (:first_name, :second_name, :age, :life, :college, :profile_image)";
 
             $stmt = $this->conn->prepare($sql);
 
@@ -34,9 +40,21 @@ Class Student extends Database
             $stmt->bindValue(":age", $age, PDO::PARAM_INT);
             $stmt->bindValue(":life", $life, PDO::PARAM_STR);
             $stmt->bindValue(":college", $college, PDO::PARAM_STR);
+            $stmt->bindValue(":profile_image", $defaultImage, PDO::PARAM_STR);
 
             if (!$stmt->execute()) {
                 throw new Exception("Vytvoření studenta selhalo");
+            } else {
+                $studentId = (int) $this->conn->lastInsertId();
+
+                if ($profileImage && $profileImage['tmp_name']) {
+                    $path = $this->processProfileImage($profileImage, $studentId);
+                    if ($path !== false) {
+                        $upd = $this->conn->prepare("UPDATE student SET profile_image = :img WHERE id = :id");
+                        $upd->execute([':img' => $path, ':id' => $studentId]);
+                    }
+                }
+
             }
 
             // Potvrzení transakce
@@ -195,4 +213,82 @@ Class Student extends Database
             return false;
         }
     }
+
+    /**
+     * Zprocesuje přípravu profilového obrázku na uložení
+     *
+     * @param array $image - Profilový obrázek
+     * @param int $studentId - ID Studenta
+     *
+     * @return string|false
+     */
+    private function processProfileImage(array $image, int $studentId): string|false
+    {
+        // Povolené přípony
+        $allowed = ['jpg','jpeg','png','gif'];
+        $ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+
+        // Kontrola chyb a přípony
+        if ($image['error'] !== UPLOAD_ERR_OK || !in_array($ext, $allowed)) {
+            $this->errors[] = "Chyba při nahrávání nebo nepovolený formát obrázku.";
+            return false;
+        }
+
+        // Kontrola velikosti (max 9 MB)
+        if ($image['size'] > 9 * 1024 * 1024) {
+            $this->errors[] = "Maximální velikost obrázku je 9 MB.";
+            return false;
+        }
+
+        // Cesta pro uložení
+        $uploadDir = __DIR__ . "/../../public/assets/images/students/profile/{$studentId}/";
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+        $dest = $uploadDir . "profile.{$ext}";
+
+        // Rozměry a nové plátno
+        [$w,$h] = getimagesize($image['tmp_name']);
+        $newW = 150; $newH = 150;
+        $dst = imagecreatetruecolor($newW, $newH);
+
+        // Vytvoření zdroje obrázku
+        switch ($ext) {
+            case 'jpg':
+            case 'jpeg':
+                $src = imagecreatefromjpeg($image['tmp_name']);
+                break;
+            case 'png':
+                $src = imagecreatefrompng($image['tmp_name']);
+                break;
+            case 'gif':
+                $src = imagecreatefromgif($image['tmp_name']);
+                break;
+            default:
+                $this->errors[] = "Nepodařilo se zpracovat obrázek.";
+                return false;
+        }
+
+        // Zmenšení a uložení
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newW, $newH, $w, $h);
+        switch ($ext) {
+            case 'jpg':
+            case 'jpeg':
+                imagejpeg($dst, $dest, 90);
+                break;
+            case 'png':
+                imagepng($dst, $dest);
+                break;
+            case 'gif':
+                imagegif($dst, $dest);
+                break;
+        }
+
+        // Úklid
+        imagedestroy($src);
+        imagedestroy($dst);
+
+        // Cesta pro uložení do DB
+        return "/assets/images/students/profile/{$studentId}/profile.{$ext}";
+    }
+
 }

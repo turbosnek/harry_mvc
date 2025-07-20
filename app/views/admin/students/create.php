@@ -37,6 +37,10 @@
                     <input type="number" name="age" placeholder="Věk" value="<?= htmlspecialchars($_POST['age'] ?? '') ?>">
                     <input type="text" name="college" placeholder="Kolej" value="<?= htmlspecialchars($_POST['college'] ?? '') ?>">
                     <textarea name="life" placeholder="Informace o žákovi"><?= htmlspecialchars($_POST['life'] ?? '') ?></textarea>
+                    <label class="label-text">Profilová fotka (volitelná, .jpg/.jpeg/.png/.gif):</label>
+                    <label for="profile_image" id="choose-file-text">Vybrat Fotku</label>
+                    <input type="file" name="profile_image" id="profile_image" accept=".jpg,.jpeg,.png,.gif">
+
                     <?php if (!empty($data['errors'])): ?>
                         <ul>
                             <?php foreach ($data['errors'] as $error): ?>

@@ -23,6 +23,8 @@ Class StudentController extends Controller
                 $age = (int) $_POST['age'];
                 $life = trim($_POST['life']);
                 $college = trim($_POST['college']);
+                $profileImage = $_FILES['profile_image'] ?? null;
+
 
                 // Zkontrolujeme, jestli jsou všechna pole vyplněna. pokud ne, uložíme chybu do proměnné
                 if (empty($firstName) or empty($secondName) or empty($age) or empty($life) or empty($college)) {
@@ -38,7 +40,7 @@ Class StudentController extends Controller
 
                 // Pokud není žádný error, přidáme studenta do databáze a přesměrujeme na hlavní stránku administrace, jinak uložíme chybu do proměnné
                 if (empty($errors)) {
-                    if ($studentModel->createStudent($firstName, $secondName, $age, $life, $college)) {
+                    if ($studentModel->createStudent($firstName, $secondName, $age, $life, $college, $profileImage)) {
                         Url::redirectUrl("/admin/students/students");
                         return;
                     } else {
