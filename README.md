@@ -35,3 +35,5 @@ Soubor pro vytvoření databáze a tabulek včetně obsahu je ve složce sql.
 každý uživatel má nastavené heslo admin123.
 
 Nezapomeňte změnit údaje k databázi. Najdete to v app/core/Database.php
+
+Používám IDE PHPStorm, takže stačí smazat složku .idea a otevřít projekt ve vašem IDE
