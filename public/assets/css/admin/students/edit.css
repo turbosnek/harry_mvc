@@ -7,6 +7,16 @@ main {
     align-items: center;
 }
 
+.profile-image {
+    border: 2px solid rgba(183, 186, 186, 0.77);
+    border-radius: 75px;
+    margin-bottom: 30px;
+}
+
+.profile-image img {
+    border-radius: 50%;
+}
+
 .student-null h1 {
     color: #fff;
     text-align: center;
@@ -45,6 +55,29 @@ form textarea {
 .label-text {
     color: red;
 }
+
+#choose-file-text {
+    color: #ffffff;
+    text-align: center;
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-radius: 15px;
+    background-color: #5e3333;
+    font-size: 20px;
+    line-height: 30px;
+    cursor: pointer;
+    transition: all .3s linear;
+}
+
+#choose-file-text:hover {
+    color: #ffda00;
+}
+
+#profile_image {
+    display: none;
+}
+
 
 input[type="submit"] {
     background-color: #ad8924;

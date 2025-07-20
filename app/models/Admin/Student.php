@@ -146,6 +146,17 @@ Class Student extends Database
      */
     public function deleteStudent(int $id): bool
     {
+        // Smažeme profilový obrázek a složku
+        $this->deleteExistingImage($id); // Mazání konkrétního obrázku
+
+        // Pro jistotu zkusíme smazat i složku, pokud existuje
+        $folder = __DIR__ . "/../../../public/assets/images/student/profile/{$id}/";
+        if (is_dir($folder)) {
+            array_map('unlink', glob("$folder/*")); // smaže všechny soubory ve složce
+            @rmdir($folder); // pokus o odstranění složky (ignoruje chybu pokud selže)
+        }
+
+
         $sql = "DELETE FROM student WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
 
@@ -172,10 +183,11 @@ Class Student extends Database
      * @param string $life - Informace o studentovi
      * @param string $college - Kolej studenta
      * @param int $id - ID studenta
+     * @param ?array $profileImage - Profilový obrázek studenta
      *
      * @return bool - TRUE, pokud byl záznam aktualizován, jinak FALSE
      */
-    public function updateStudent(string $firstname, string $secondName, int $age, string $life, string $college, int $id): bool
+    public function updateStudent(string $firstname, string $secondName, int $age, string $life, string $college, int $id, ?array $profileImage = null): bool
     {
         try {
             $this->conn->beginTransaction();
@@ -199,10 +211,25 @@ Class Student extends Database
 
             $stmt->execute();
 
+            $rowsUpdated = $stmt->rowCount(); // Zachytíme, kolik řádků bylo změněno
+
+            $imageUpdated = false;
+
+            if ($profileImage && $profileImage['tmp_name']) {
+                $this->deleteExistingImage($id);
+
+                $path = $this->processProfileImage($profileImage, $id);
+                if ($path !== false) {
+                    $upd = $this->conn->prepare("UPDATE student SET profile_image = :img WHERE id = :id");
+                    $upd->execute([':img' => $path, ':id' => $id]);
+                    $imageUpdated = true;
+                }
+            }
+
             $this->conn->commit();
 
-            // Vrátí true, pouze pokud byl alespoň jeden řádek změněn
-            return $stmt->rowCount() > 0;
+            // Vrátí true, pokud byl aktualizován alespoň textový údaj nebo obrázek
+            return $rowsUpdated > 0 || $imageUpdated;
 
         } catch (Exception $e) {
             $this->conn->rollBack();
@@ -290,5 +317,31 @@ Class Student extends Database
         // Cesta pro uložení do DB
         return "/assets/images/students/profile/{$studentId}/profile.{$ext}";
     }
+
+    /**
+     * Smaže profilový obrázek
+     *
+     * @param int $studentId - ID Studenta
+     *
+     * @return void
+     */
+    private function deleteExistingImage(int $studentId): void
+    {
+        $sql = "SELECT profile_image FROM student WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $studentId]);
+        $img = $stmt->fetchColumn();
+
+        if ($img && !str_contains($img, 'hogwarts-logo.png')) {
+            $file = __DIR__.'/../../../public' . $img;
+            if (file_exists($file)) unlink($file);
+            $folder = dirname($file);
+            if (is_dir($folder)) {
+                array_map('unlink', glob("$folder/*"));
+                rmdir($folder);
+            }
+        }
+    }
+
 
 }

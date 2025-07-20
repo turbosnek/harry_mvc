@@ -133,7 +133,7 @@ Class StudentController extends Controller
         if (!filter_var($id, FILTER_VALIDATE_INT)) {
             $errors[] = "Neplatné ID studenta.";
         } else {
-            $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name']);
+            $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name', 'profile_image']);
             if (empty($student)) {
                 $errors[] = "Student s tímto ID neexistuje.";
             }
@@ -179,7 +179,7 @@ Class StudentController extends Controller
         $errors = [];
 
         // Získáme všechny sloupečky z DB, které potřebujeme
-        $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name', 'age', 'life', 'college']);
+        $student = $studentModel->getStudent($id, ['id', 'first_name', 'second_name', 'age', 'life', 'college', 'profile_image']);
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             // Zkontrolujeme, jestli je správně nastavený CSRF Token, pokud ne, uložíme chybu do proměnné
@@ -192,6 +192,7 @@ Class StudentController extends Controller
                 $life = trim($_POST['life']);
                 $college = trim($_POST['college']);
                 $age_input = $_POST['age'];
+                $profileImage = $_FILES['profile_image'] ?? null;
 
                 // Zkontrolujeme, jsetli jsou všechna pole ve formuláři vyplněna. pokud ne, uložíme chybu do proměnné
                 if ($first_name === '' || $second_name === '' || $life === '' || $college === '' || $age_input === '') {
@@ -210,7 +211,7 @@ Class StudentController extends Controller
 
                 // Když není žádná chyba, aktualizujeme informace o studentovi. Když to selže, uložíme chybu do promněnné
                 if (empty($errors)) {
-                    $success = $studentModel->updateStudent($first_name, $second_name, $age, $life, $college, $id);
+                    $success = $studentModel->updateStudent($first_name, $second_name, $age, $life, $college, $id, $profileImage);
                     if ($success) {
                         Url::redirectUrl("/admin/students/student/" . $id);
                         return;
