@@ -36,7 +36,7 @@
                 <?php else: ?>
                     <div class="profile-image">
                         <img src="<?= !empty($data['student']['profile_image']) ? htmlspecialchars($data['student']['profile_image']) : '/assets/images/layout/hogwarts-logo.png' ?>"
-                             alt="Profilový obrázek studenta">
+                             alt="Profilový obrázek studenta <?= $data['student']['first_name'] . " " . $data['student']['second_name'] ?>">
                     </div>
 
                     <div class="one-student-box">
